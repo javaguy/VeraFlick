@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VeraController.h"
+#import "VeraRoom.h"
 
 @interface flickViewRoomDetailController : UITableViewController
-
+@property (atomic, strong) VeraRoom *room;
 @end

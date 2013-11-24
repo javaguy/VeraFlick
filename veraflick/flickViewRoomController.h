@@ -10,4 +10,6 @@
 
 @interface flickViewRoomController : UITableViewController
 
+-(IBAction)segueButtonPressed:(id)sender;
+
 @end

@@ -7,14 +7,17 @@
 //
 
 #import "flickViewRoomController.h"
+#import "flickViewRoomDetailController.h"
 #import "flickRoomCell.h"
 #import "VeraRoom.h"
 #import "VeraController.h"
+#import "ZwaveNode.h"
+#import "ZwaveSwitch.h"
 
 #define MY_MIOS_USERNAME  @"javaguy01"
 #define MY_MIOS_PASSWD @"Xunit12";
 
-@interface flickViewRoomController ()
+@interface flickViewRoomController () <FlickRoomCellProtocol>
 
 @end
 
@@ -56,16 +59,7 @@
                                                  name:VERA_LOCATE_CONTROLLER_NOTIFICATION
                                                object:nil];
     
-    
-    /*
-     "Unassigned"
-     "Master Bedroom"
-     "Living Room"
-     "Dining Room"
-     "Kitchen"
-     */
-    
-    roomImages = [[NSDictionary alloc] initWithObjectsAndKeys: @"GenericRoom", @"Unassigned",  @"BedroomRoom", @"Master Bedroom", @"LivingRoom", @"Living Room", @"DiningRoom", @"Dining Room", @"GenericRoom", @"Kitchen", nil];
+    roomImages = [[NSDictionary alloc] initWithObjectsAndKeys: @"GenericRoom", @"Unassigned",  @"BedroomRoom", @"Master Bedroom", @"LivingRoom", @"Living Room", @"DiningRoom", @"Dining Room", @"KitchenRoom", @"Kitchen", nil];
     
     rooms = [[NSArray alloc] init];
     
@@ -103,19 +97,61 @@
     
     if (cell == nil) {
         cell = [[flickRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+
     }
-    
+
     VeraRoom *room = (VeraRoom*)[rooms objectAtIndex:indexPath.row];
     
+    cell.delegate = self;
+    cell.roomID = indexPath.row;
     cell.roomLabel.text = room.name;
     cell.roomImageView.image = [UIImage imageNamed:[roomImages objectForKey:room.name]];
+    
+    bool switchOn = false;
+    
+    for (NSObject *device in room.devices) {
+        if ([device isKindOfClass:[ZwaveSwitch class]]) {
+            if ([(ZwaveSwitch*)device on]) {
+                switchOn = true;
+            }
+        }
+    }
+    
+    [cell.roomSwitch setOn:switchOn animated:false];
   
-    
-    
-    
-    //cell.textLabel.text = room.name;
-    
     return cell;
+}
+
+-(IBAction)roomSwitchToggled:(flickRoomCell*)sender value:(BOOL)value {
+    VeraRoom *room = (VeraRoom*)[rooms objectAtIndex:sender.roomID];
+    
+    [self setLightsForRoom:room setOn:value];
+}
+
+- (void)setLightsForRoom:(VeraRoom*)room setOn:(BOOL)setOn {
+
+    NSLog(@"Toggling Lights for Room - %@\n",room.name);
+    
+    for (NSObject *node in room.devices)
+    {
+        if ([node isKindOfClass:[ZwaveSwitch class]]) {
+            ZwaveSwitch *zwSwitch = (ZwaveSwitch*)node;
+            
+            NSLog (@"Toggling Light - %@\n", zwSwitch.name);
+            [zwSwitch setOn:setOn completion:^(){
+                NSLog(@"Light toggled\n");
+            }];
+        }
+    }
+}
+
+NSIndexPath *segueHitIndex;
+-(IBAction)segueButtonPressed:(id)sender
+{
+    
+    CGPoint hitPoint = [sender convertPoint:CGPointZero toView:self.tableView];
+    segueHitIndex = [self.tableView indexPathForRowAtPoint:hitPoint];
+    
 }
 
 - (void) myTestNotificationReceived:(NSNotification *) notification
@@ -124,7 +160,19 @@
     {
         NSLog (@"Devices Refreshed notification is successfully received!");
         
-        rooms = myVeraController.rooms;
+        //Only add rooms that have lights (since that is focus for now)
+        for (VeraRoom *room in myVeraController.rooms) {
+            BOOL hasLights;
+            
+            hasLights = false;
+            for (NSObject *device in room.devices) {
+                if ([device isKindOfClass:[ZwaveSwitch class]])
+                    hasLights = true;
+            }
+            
+            if (hasLights)
+                rooms = [rooms arrayByAddingObject:room];
+        }
         
         [self.tableView reloadData];
         
@@ -185,7 +233,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -193,9 +241,15 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    flickViewRoomDetailController *newController = [segue destinationViewController];
+    
+    VeraRoom *room = [rooms objectAtIndex:segueHitIndex.row];
+    
+    newController.title = room.name;
+    newController.room = room;
 }
 
- */
+
 
 - (void)hideTabBar:(UITabBarController *) tabbarcontroller
 {
@@ -204,13 +258,16 @@
     
     for(UIView *view in tabbarcontroller.view.subviews)
     {
+        //480px for pre-Iphone 5, 568px for Iphone 5+
+        int newHeight = [[UIScreen mainScreen] bounds].size.height;
+        
         if([view isKindOfClass:[UITabBar class]])
         {
-            [view setFrame:CGRectMake(view.frame.origin.x, 480, view.frame.size.width, view.frame.size.height)];
+            [view setFrame:CGRectMake(view.frame.origin.x, newHeight, view.frame.size.width, view.frame.size.height)];
         }
         else
         {
-            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 480)];
+            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, newHeight)];
         }
     }
     
@@ -225,18 +282,34 @@
     {
         NSLog(@"%@", view);
         
+        //431px for pre-Iphone 5, 568-49px for Iphone 5+
+        int newHeight = [[UIScreen mainScreen] bounds].size.height - 49;
+        
         if([view isKindOfClass:[UITabBar class]])
         {
-            [view setFrame:CGRectMake(view.frame.origin.x, 431, view.frame.size.width, view.frame.size.height)];
+            [view setFrame:CGRectMake(view.frame.origin.x, newHeight, view.frame.size.width, view.frame.size.height)];
             
         }
         else
         {
-            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, 431)];
+            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, newHeight)];
         }
+        
+        
     }
     
     //[UIView commitAnimations];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
+}
 @end

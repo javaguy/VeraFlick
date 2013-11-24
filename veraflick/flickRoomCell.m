@@ -27,7 +27,13 @@
 }
 
 - (IBAction)toggleSwitch:(id)sender {
-    //Do nothing for now
+    //Send the action to the delegate
+    
+    if (self.delegate != nil)
+    {
+        [self.delegate roomSwitchToggled:self value:self.roomSwitch.on];
+        //[self.delegate performSelector:@selector(roomSwitchToggled:) withObject:self];
+    }
 }
 
 @end
