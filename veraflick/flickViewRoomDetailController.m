@@ -11,9 +11,13 @@
 #import "ZwaveNode.h"
 #import "ZwaveSwitch.h"
 #import "ZwaveDimmerSwitch.h"
+#import "FlickRoomSwitchCell.h"
+#import "FlickRoomSceneCell.h"
+#import "FlickRoomDimmerCell.h"
+#import "FlickRoomDetailCellProtocol.h"
 
 
-@interface flickViewRoomDetailController ()
+@interface flickViewRoomDetailController () <FlickRoomDetailCellProtocol>
 
 @end
 
@@ -31,6 +35,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(veraNotificationReceived:)
+                                                 name:VERA_DEVICES_DID_REFRESH_NOTIFICATION
+                                               object:nil];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -84,27 +93,99 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"RoomDetailCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier[] = {@"RoomDetailSceneCell", @"RoomDetailSwitchCell", @"RoomDetailDimmerCell", @"RoomDetailUnsupportedCell"};
+    int cellToUse = -1;
+    UITableViewCell *returnCell;
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
+    //Figure out the cell type that we need
     // Configure the cell...
     if (indexPath.section == 0 && [self.room.scenes count] != 0) {
+        //We are configuring a scene object
+        
         VeraSceneTrigger *scene = [self.room.scenes objectAtIndex:indexPath.row];
+        cellToUse = 0;
+        
+        FlickRoomSceneCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier[cellToUse] forIndexPath:indexPath];
+        
+        if (cell == nil) {
+            cell = [[FlickRoomSceneCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:(CellIdentifier[cellToUse])];
+        }
+        
+        cell.delegate = self;
         cell.textLabel.text = scene.name;
+        cell.sceneObject = scene;
+        
+        returnCell = cell;
     }
     else {
+        //It is a device
         ZwaveNode *node = [self.room.devices objectAtIndex:indexPath.row];
-        cell.textLabel.text = node.name;
+        
+        if ([node isKindOfClass:[ZwaveDimmerSwitch class]]) {
+            cellToUse = 2;
+            FlickRoomDimmerCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier[cellToUse] forIndexPath:indexPath];
+            
+            if (cell == nil) {
+                cell = [[FlickRoomDimmerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:(CellIdentifier[cellToUse])];
+            }
+            
+            cell.delegate = self;
+            cell.lightLabel.text = node.name;
+            cell.object = (ZwaveSwitch*)node;
+
+            [cell.lightSlider setValue:[(ZwaveDimmerSwitch*)node brightness] animated:YES];
+            
+            returnCell = cell;
+        }
+        else if ([node isKindOfClass:[ZwaveSwitch class]]) {
+            cellToUse = 1;
+            FlickRoomSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier[cellToUse] forIndexPath:indexPath];
+            
+            if (cell == nil) {
+                cell = [[FlickRoomSwitchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:(CellIdentifier[cellToUse])];
+            }
+            
+            cell.delegate = self;
+            cell.lightLabel.text = node.name;
+            cell.lightSwitch.on = [(ZwaveSwitch*)node on];
+            cell.object = (ZwaveSwitch*)node;
+            returnCell = cell;
+        }
+        else {
+            //Unsupported device
+            cellToUse = 3;
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier[cellToUse] forIndexPath:indexPath];
+            
+            if (cell == nil) {
+                cell = [[FlickRoomSwitchCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:(CellIdentifier[cellToUse])];
+            }
+            
+            cell.textLabel.text = node.name;
+            returnCell = cell;
+
+        }
     }
     
-    return cell;
+    return returnCell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && [self.room.scenes count] != 0) {
+        //Its a scene
+        return tableView.rowHeight;
+    }
+    else if ([[self.room.devices objectAtIndex:indexPath.row] isKindOfClass:[ZwaveDimmerSwitch class]]) {
+        
+        //Use the custom height as defined in the storyboard (this is workaround for storyboard bug)
+        return  82;
+    }
+    else {
+        return tableView.rowHeight;
+    }
+}
+
+/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //Figure out which scene or light
     if (indexPath.section == 0 && [self.room.scenes count] != 0) {
         //It is a scene, run it
@@ -127,7 +208,47 @@
         }
         
     }
+}*/
+
+- (void) veraNotificationReceived:(NSNotification *) notification {
+    if ([[notification name] isEqualToString:VERA_DEVICES_DID_REFRESH_NOTIFICATION]) {
+        //Refresh the state.
+        //TODO: should check to see if the room is still valid
+        
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:false];
+    }
+
 }
+
+-(void)sceneTriggered:(id)sender {
+    VeraSceneTrigger *scene = [(FlickRoomSceneCell*)sender sceneObject];
+    
+    NSLog (@"Triggering Scene - %@", scene.name);
+    
+    [scene runSceneCompletion:^(){
+        NSLog(@"Scene triggered\n");
+    }];
+ 
+}
+
+-(void)switchTriggered:(id)sender withState:(BOOL)on {
+    ZwaveSwitch *mySwitch = [(FlickRoomSwitchCell*)sender object];
+    
+    NSLog (@"Toggling light %@ %@", mySwitch.name, (on?@"ON":@"OFF"));
+    [mySwitch setOn:on completion:^() {
+        NSLog(@"Light toggled");
+    }];
+}
+
+-(void)dimmerSwitchTriggered:(id)sender withBrightness:(int)brightness {
+    ZwaveDimmerSwitch *mySwitch = (ZwaveDimmerSwitch*)[(FlickRoomDimmerCell*)sender object];
+    
+    NSLog (@"Dimming light %@ %d", mySwitch.name, brightness);
+    [mySwitch setBrightness:brightness completion:^() {
+        NSLog(@"Light toggled");
+    }];
+}
+
 
 /*
  #pragma mark - Navigation

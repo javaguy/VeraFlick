@@ -50,12 +50,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(myTestNotificationReceived:)
+                                             selector:@selector(veraNotificationReceived:)
                                                  name:VERA_DEVICES_DID_REFRESH_NOTIFICATION
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(myTestNotificationReceived:)
+                                             selector:@selector(veraNotificationReceived:)
                                                  name:VERA_LOCATE_CONTROLLER_NOTIFICATION
                                                object:nil];
     
@@ -154,35 +154,36 @@ NSIndexPath *segueHitIndex;
     
 }
 
-- (void) myTestNotificationReceived:(NSNotification *) notification
+- (void) veraNotificationReceived:(NSNotification *) notification
 {
     if ([[notification name] isEqualToString:VERA_DEVICES_DID_REFRESH_NOTIFICATION])
     {
         NSLog (@"Devices Refreshed notification is successfully received!");
         
-        //Only add rooms that have lights (since that is focus for now)
-        for (VeraRoom *room in myVeraController.rooms) {
-            BOOL hasLights;
+        if (rooms.count != myVeraController.rooms.count) {
+            //This is the first time we've gotten the state, or state has changed, refresh
             
-            hasLights = false;
-            for (NSObject *device in room.devices) {
-                if ([device isKindOfClass:[ZwaveSwitch class]])
-                    hasLights = true;
-            }
+            rooms = [[NSArray alloc] init];
             
-            if (hasLights)
+            VeraRoom *firstRoom = nil;
+            //We want to reorder the rooms by moving the unassigned room to the end
+            for (VeraRoom *room in myVeraController.rooms) {
+                
+                if (!firstRoom) {
+                    firstRoom = room;
+                    continue;
+                }
                 rooms = [rooms arrayByAddingObject:room];
+            }
+            rooms = [rooms arrayByAddingObject:firstRoom];
+            
+            //Set up the heartbeat
+            [myVeraController startHeartbeat];
         }
-        
-        [self.tableView reloadData];
         
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:false];
         
-        //[self performSelectorOnMainThread:@selector(UpdateLabelText:) withObject:@"Refreshed Devices" waitUntilDone:false];
-        
-        //[self performSelectorOnMainThread:@selector(UpdateToggleLightButtonState) withObject:nil waitUntilDone:false];
-        
-        //[self UpdateToggleLightButtonState];
+
         
     }
     else if ([[notification name] isEqualToString:VERA_LOCATE_CONTROLLER_NOTIFICATION])

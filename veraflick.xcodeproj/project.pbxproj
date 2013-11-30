@@ -21,6 +21,9 @@
 		8C31F31F180BD1130098B37E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C31F2FB180BD1120098B37E /* UIKit.framework */; };
 		8C31F327180BD1130098B37E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C31F325180BD1130098B37E /* InfoPlist.strings */; };
 		8C31F329180BD1130098B37E /* veraflickTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C31F328180BD1130098B37E /* veraflickTests.m */; };
+		8C54886618496F5A00B6AA8E /* FlickRoomSceneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */; };
+		8C54886A1849848B00B6AA8E /* FlickRoomSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */; };
+		8C54886D184986E900B6AA8E /* FlickRoomDimmerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */; };
 		8C6426B4184141540037DD55 /* IPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64269C184141540037DD55 /* IPCamera.m */; };
 		8C6426B5184141540037DD55 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C64269D184141540037DD55 /* README.md */; };
 		8C6426B6184141540037DD55 /* VeraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64269F184141540037DD55 /* VeraController.m */; };
@@ -68,6 +71,13 @@
 		8C31F324180BD1130098B37E /* veraflickTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "veraflickTests-Info.plist"; sourceTree = "<group>"; };
 		8C31F326180BD1130098B37E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8C31F328180BD1130098B37E /* veraflickTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = veraflickTests.m; sourceTree = "<group>"; };
+		8C54886418496F5A00B6AA8E /* FlickRoomSceneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickRoomSceneCell.h; sourceTree = "<group>"; };
+		8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomSceneCell.m; sourceTree = "<group>"; };
+		8C5488671849843100B6AA8E /* FlickRoomDetailCellProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickRoomDetailCellProtocol.h; sourceTree = "<group>"; };
+		8C5488681849848B00B6AA8E /* FlickRoomSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickRoomSwitchCell.h; sourceTree = "<group>"; };
+		8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomSwitchCell.m; sourceTree = "<group>"; };
+		8C54886B184986E900B6AA8E /* FlickRoomDimmerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickRoomDimmerCell.h; sourceTree = "<group>"; };
+		8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomDimmerCell.m; sourceTree = "<group>"; };
 		8C64269B184141540037DD55 /* IPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCamera.h; sourceTree = "<group>"; };
 		8C64269C184141540037DD55 /* IPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPCamera.m; sourceTree = "<group>"; };
 		8C64269D184141540037DD55 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -169,6 +179,13 @@
 				8C64270F1841AA610037DD55 /* flickViewRoomDetailController.m */,
 				8C6427111841D3FB0037DD55 /* flickRoomCell.h */,
 				8C6427121841D3FB0037DD55 /* flickRoomCell.m */,
+				8C5488671849843100B6AA8E /* FlickRoomDetailCellProtocol.h */,
+				8C54886418496F5A00B6AA8E /* FlickRoomSceneCell.h */,
+				8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */,
+				8C5488681849848B00B6AA8E /* FlickRoomSwitchCell.h */,
+				8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */,
+				8C54886B184986E900B6AA8E /* FlickRoomDimmerCell.h */,
+				8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */,
 				8C31F315180BD1120098B37E /* Images.xcassets */,
 				8C31F2FE180BD1120098B37E /* Supporting Files */,
 			);
@@ -285,6 +302,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Punit;
 				TargetAttributes = {
+					8C31F2F3180BD1120098B37E = {
+						DevelopmentTeam = 3E57383D78;
+					};
 					8C31F31A180BD1130098B37E = {
 						TestTargetID = 8C31F2F3180BD1120098B37E;
 					};
@@ -348,12 +368,15 @@
 				8C6426B8184141540037DD55 /* VeraSceneTrigger.m in Sources */,
 				8C6426BB184141540037DD55 /* ZwaveLock.m in Sources */,
 				8C6426BA184141540037DD55 /* ZwaveHumiditySensor.m in Sources */,
+				8C54886618496F5A00B6AA8E /* FlickRoomSceneCell.m in Sources */,
+				8C54886D184986E900B6AA8E /* FlickRoomDimmerCell.m in Sources */,
 				8C6426BC184141540037DD55 /* ZwaveNode.m in Sources */,
 				8C6426BD184141540037DD55 /* ZwavePhillipsHueBulb.m in Sources */,
 				8C6426B9184141540037DD55 /* ZwaveDimmerSwitch.m in Sources */,
 				8C6427131841D3FB0037DD55 /* flickRoomCell.m in Sources */,
 				8C6426BF184141540037DD55 /* ZwaveSwitch.m in Sources */,
 				8C31F304180BD1120098B37E /* main.m in Sources */,
+				8C54886A1849848B00B6AA8E /* FlickRoomSwitchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,10 +513,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "veraflick/veraflick-Prefix.pch";
 				INFOPLIST_FILE = "veraflick/veraflick-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -503,10 +529,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "veraflick/veraflick-Prefix.pch";
 				INFOPLIST_FILE = "veraflick/veraflick-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
