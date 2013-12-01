@@ -14,9 +14,6 @@
 #import "ZwaveNode.h"
 #import "ZwaveSwitch.h"
 
-#define MY_MIOS_USERNAME  @"javaguy01"
-#define MY_MIOS_PASSWD @"Xunit12";
-
 @interface flickViewRoomController () <FlickRoomCellProtocol>
 
 @end
@@ -54,20 +51,12 @@
                                                  name:VERA_DEVICES_DID_REFRESH_NOTIFICATION
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(veraNotificationReceived:)
-                                                 name:VERA_LOCATE_CONTROLLER_NOTIFICATION
-                                               object:nil];
-    
     roomImages = [[NSDictionary alloc] initWithObjectsAndKeys: @"GenericRoom", @"Unassigned",  @"BedroomRoom", @"Master Bedroom", @"LivingRoom", @"Living Room", @"DiningRoom", @"Dining Room", @"KitchenRoom", @"Kitchen", nil];
     
     rooms = [[NSArray alloc] init];
     
     myVeraController = [VeraController sharedController];
-    myVeraController.miosUsername = MY_MIOS_USERNAME;
-    myVeraController.miosPassword = MY_MIOS_PASSWD;
-    myVeraController.useMiosRemoteService = true;
-    [myVeraController findVeraController];
+    rooms = [myVeraController.rooms allValues];
 }
 
 - (void)didReceiveMemoryWarning
@@ -168,8 +157,6 @@ NSIndexPath *segueHitIndex;
         if (rooms.count != myVeraController.rooms.count) {
             //This is the first time we've gotten the state, or state has changed, refresh
             
-            rooms = [[NSArray alloc] init];
-            
             rooms = [myVeraController.rooms allValues];
             
             /*VeraRoom *firstRoom = nil;
@@ -190,16 +177,6 @@ NSIndexPath *segueHitIndex;
         }
         
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:false];
-        
-
-        
-    }
-    else if ([[notification name] isEqualToString:VERA_LOCATE_CONTROLLER_NOTIFICATION])
-    {
-        NSLog (@"Locate Controller notification is successfully received!");
-        //self.titleLabel.text = @"Located Controller";
-        //[self performSelectorOnMainThread:@selector(UpdateLabelText:) withObject:@"Located Controller" waitUntilDone:false];
-        [myVeraController refreshDevices];
     }
 }
 

@@ -7,11 +7,37 @@
 //
 
 #import "flickAppDelegate.h"
+#import "flickViewRoomController.h"
+#import "VeraRoom.h"
+#import "VeraController.h"
+#import "ZwaveNode.h"
+#import "ZwaveSwitch.h"
 
-@implementation flickAppDelegate
+#define MY_MIOS_USERNAME  @"javaguy01"
+#define MY_MIOS_PASSWD @"Xunit12";
+
+@implementation flickAppDelegate {
+    VeraController *myVeraController;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(veraNotificationReceived:)
+                                                 name:VERA_LOCATE_CONTROLLER_NOTIFICATION
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(veraNotificationReceived:)
+                                                 name:VERA_DEVICES_DID_REFRESH_NOTIFICATION
+                                               object:nil];
+    
+    myVeraController = [VeraController sharedController];
+    myVeraController.miosUsername = MY_MIOS_USERNAME;
+    myVeraController.miosPassword = MY_MIOS_PASSWD;
+    myVeraController.useMiosRemoteService = true;
+    [myVeraController findVeraController];
+
     // Override point for customization after application launch.
     return YES;
 }
@@ -41,6 +67,43 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void) veraNotificationReceived:(NSNotification *) notification
+{
+    static BOOL loadedMainView = false;
+    
+    if ([[notification name] isEqualToString:VERA_DEVICES_DID_REFRESH_NOTIFICATION])
+    {
+        //Check to see if the splashscreen is displayed (by checking if the navigation controller is not loaded.
+        //TODO: hacky
+        
+        //Push the Room Detail View
+        if (!loadedMainView) {
+            //[self performSelectorOnMainThread:@selector(launchMainViewController) withObject:nil waitUntilDone:false];
+            
+            //Set up the heartbeat
+            //[myVeraController startHeartbeat];
+            loadedMainView = true;
+        }
+        
+    }
+    else if ([[notification name] isEqualToString:VERA_LOCATE_CONTROLLER_NOTIFICATION])
+    {
+        NSLog (@"flickAppDelegate_veraNotificationReceived::Locate Controller notification is successfully received!");
+        [myVeraController refreshDevices];
+    }
+}
+
+- (void) launchMainViewController {
+    /*UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+    
+    UINavigationController *controller = [storyboard instantiateViewControllerWithIdentifier:@"MainNavigationController"];
+    
+    [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
+     */
+    
+    [self.window.rootViewController performSegueWithIdentifier:@"MainNavigationSegue" sender:self];
 }
 
 @end
