@@ -108,16 +108,23 @@
     cell.roomImageView.image = [UIImage imageNamed:[roomImages objectForKey:room.name]];
     
     bool switchOn = false;
+    bool hasLight = false;
     
     for (NSObject *device in room.devices) {
         if ([device isKindOfClass:[ZwaveSwitch class]]) {
             if ([(ZwaveSwitch*)device on]) {
                 switchOn = true;
             }
+            hasLight = true;
         }
     }
-    
-    [cell.roomSwitch setOn:switchOn animated:false];
+    if (hasLight) {
+        cell.roomSwitch.hidden = false;
+        [cell.roomSwitch setOn:switchOn animated:false];
+    }
+    else {
+        cell.roomSwitch.hidden = true;
+    }
   
     return cell;
 }
