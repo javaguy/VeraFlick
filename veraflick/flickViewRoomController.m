@@ -124,13 +124,11 @@
 
 -(IBAction)roomSwitchToggled:(flickRoomCell*)sender value:(BOOL)value {
     VeraRoom *room = (VeraRoom*)[rooms objectAtIndex:sender.roomID];
-    
+    NSLog (@"VeraRoomController_RoomSwitchToggled:: %@, %@\n", room.name, (value?@"ON":@"OFF"));
     [self setLightsForRoom:room setOn:value];
 }
 
 - (void)setLightsForRoom:(VeraRoom*)room setOn:(BOOL)setOn {
-
-    NSLog(@"Toggling Lights for Room - %@\n",room.name);
     
     for (NSObject *node in room.devices)
     {
@@ -165,7 +163,9 @@ NSIndexPath *segueHitIndex;
             
             rooms = [[NSArray alloc] init];
             
-            VeraRoom *firstRoom = nil;
+            rooms = [myVeraController.rooms allValues];
+            
+            /*VeraRoom *firstRoom = nil;
             //We want to reorder the rooms by moving the unassigned room to the end
             for (VeraRoom *room in myVeraController.rooms) {
                 
@@ -176,6 +176,7 @@ NSIndexPath *segueHitIndex;
                 rooms = [rooms arrayByAddingObject:room];
             }
             rooms = [rooms arrayByAddingObject:firstRoom];
+             */
             
             //Set up the heartbeat
             [myVeraController startHeartbeat];
@@ -248,6 +249,7 @@ NSIndexPath *segueHitIndex;
     
     newController.title = room.name;
     newController.room = room;
+    newController.roomImageString = [roomImages objectForKey:room.name];
 }
 
 

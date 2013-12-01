@@ -15,6 +15,7 @@
 #import "FlickRoomSceneCell.h"
 #import "FlickRoomDimmerCell.h"
 #import "FlickRoomDetailCellProtocol.h"
+#import "UIImage+ImageEffects.h"
 
 
 @interface flickViewRoomDetailController () <FlickRoomDetailCellProtocol>
@@ -46,6 +47,11 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    UIImageView *bgView = [[UIImageView alloc] init];
+    bgView.image = [[UIImage imageNamed:self.roomImageString] applyLightDarkEffect];
+    bgView.contentMode = UIViewContentModeScaleAspectFill;
+    self.tableView.backgroundView = bgView;
 }
 
 - (void)didReceiveMemoryWarning
@@ -132,8 +138,15 @@
             cell.delegate = self;
             cell.lightLabel.text = node.name;
             cell.object = (ZwaveSwitch*)node;
-
-            [cell.lightSlider setValue:[(ZwaveDimmerSwitch*)node brightness] animated:YES];
+            ZwaveDimmerSwitch *dimmerSwitch = (ZwaveDimmerSwitch*)node;
+            
+            if (dimmerSwitch.on) {
+                [cell.lightSlider setValue:(float)([(ZwaveDimmerSwitch*)node brightness]/100.0) animated:YES];
+            }
+            else {
+                [cell.lightSlider setValue:0.0 animated:YES];
+            }
+            NSLog(@"RoomViewDetailController:: Light switch %@ State %@ Brightness %d", node.name, ([(ZwaveDimmerSwitch*)node on]?@"ON":@"OFF"), [(ZwaveDimmerSwitch*)node brightness]);
             
             returnCell = cell;
         }
@@ -223,7 +236,7 @@
 -(void)sceneTriggered:(id)sender {
     VeraSceneTrigger *scene = [(FlickRoomSceneCell*)sender sceneObject];
     
-    NSLog (@"Triggering Scene - %@", scene.name);
+    NSLog (@"VeraRoomDetailContter_sceneTriggered:: %@", scene.name);
     
     [scene runSceneCompletion:^(){
         NSLog(@"Scene triggered\n");
@@ -234,7 +247,7 @@
 -(void)switchTriggered:(id)sender withState:(BOOL)on {
     ZwaveSwitch *mySwitch = [(FlickRoomSwitchCell*)sender object];
     
-    NSLog (@"Toggling light %@ %@", mySwitch.name, (on?@"ON":@"OFF"));
+    NSLog (@"VeraRoomDetailContter_switchTriggered:: %@, %@", mySwitch.name, (on?@"ON":@"OFF"));
     [mySwitch setOn:on completion:^() {
         NSLog(@"Light toggled");
     }];
@@ -243,7 +256,7 @@
 -(void)dimmerSwitchTriggered:(id)sender withBrightness:(int)brightness {
     ZwaveDimmerSwitch *mySwitch = (ZwaveDimmerSwitch*)[(FlickRoomDimmerCell*)sender object];
     
-    NSLog (@"Dimming light %@ %d", mySwitch.name, brightness);
+    NSLog (@"VeraRoomDetailController_dimmerSwitchTriggered:: %@, %@, %d", mySwitch.name, (mySwitch.on?@"ON":@"OFF"), brightness);
     [mySwitch setBrightness:brightness completion:^() {
         NSLog(@"Light toggled");
     }];

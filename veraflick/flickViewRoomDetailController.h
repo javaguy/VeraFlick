@@ -12,4 +12,5 @@
 
 @interface flickViewRoomDetailController : UITableViewController
 @property (atomic, strong) VeraRoom *room;
+@property (atomic, strong) NSString *roomImageString;
 @end

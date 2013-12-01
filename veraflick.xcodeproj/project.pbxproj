@@ -24,6 +24,7 @@
 		8C54886618496F5A00B6AA8E /* FlickRoomSceneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */; };
 		8C54886A1849848B00B6AA8E /* FlickRoomSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */; };
 		8C54886D184986E900B6AA8E /* FlickRoomDimmerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */; };
+		8C548871184B1AAE00B6AA8E /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C548870184B1AAE00B6AA8E /* UIImage+ImageEffects.m */; };
 		8C6426B4184141540037DD55 /* IPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64269C184141540037DD55 /* IPCamera.m */; };
 		8C6426B5184141540037DD55 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C64269D184141540037DD55 /* README.md */; };
 		8C6426B6184141540037DD55 /* VeraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64269F184141540037DD55 /* VeraController.m */; };
@@ -78,6 +79,8 @@
 		8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomSwitchCell.m; sourceTree = "<group>"; };
 		8C54886B184986E900B6AA8E /* FlickRoomDimmerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickRoomDimmerCell.h; sourceTree = "<group>"; };
 		8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomDimmerCell.m; sourceTree = "<group>"; };
+		8C54886F184B1AAE00B6AA8E /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		8C548870184B1AAE00B6AA8E /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		8C64269B184141540037DD55 /* IPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCamera.h; sourceTree = "<group>"; };
 		8C64269C184141540037DD55 /* IPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPCamera.m; sourceTree = "<group>"; };
 		8C64269D184141540037DD55 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 		8C31F2EB180BD1120098B37E = {
 			isa = PBXGroup;
 			children = (
+				8C54886E184B1A7E00B6AA8E /* SupportLibraries */,
 				8C64269A184141540037DD55 /* VeraControl */,
 				8C31F2FD180BD1120098B37E /* veraflick */,
 				8C31F322180BD1130098B37E /* veraflickTests */,
@@ -219,6 +223,15 @@
 				8C31F325180BD1130098B37E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8C54886E184B1A7E00B6AA8E /* SupportLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				8C54886F184B1AAE00B6AA8E /* UIImage+ImageEffects.h */,
+				8C548870184B1AAE00B6AA8E /* UIImage+ImageEffects.m */,
+			);
+			name = SupportLibraries;
 			sourceTree = "<group>";
 		};
 		8C64269A184141540037DD55 /* VeraControl */ = {
@@ -359,6 +372,7 @@
 			files = (
 				8C6427101841AA610037DD55 /* flickViewRoomDetailController.m in Sources */,
 				8C31F308180BD1120098B37E /* flickAppDelegate.m in Sources */,
+				8C548871184B1AAE00B6AA8E /* UIImage+ImageEffects.m in Sources */,
 				8C6426BE184141540037DD55 /* ZwaveSecuritySensor.m in Sources */,
 				8C6426B4184141540037DD55 /* IPCamera.m in Sources */,
 				8C64270D1841AA260037DD55 /* flickViewRoomController.m in Sources */,
