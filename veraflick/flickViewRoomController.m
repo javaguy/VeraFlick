@@ -13,6 +13,7 @@
 #import "VeraController.h"
 #import "ZwaveNode.h"
 #import "ZwaveSwitch.h"
+#import "flickUserInfo.h"
 
 @interface flickViewRoomController () <FlickRoomCellProtocol>
 
@@ -21,7 +22,7 @@
 @implementation flickViewRoomController {
     VeraController *myVeraController;
     NSArray *rooms;
-    NSDictionary *roomImages;
+    flickUserInfo *userInfo;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -38,7 +39,7 @@
     [super viewDidLoad];
     
     //Hide the tab bar controller since we don't use it right now
-    [self hideTabBar:self.tabBarController];
+    //[self hideTabBar:self.tabBarController];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -51,12 +52,42 @@
                                                  name:VERA_DEVICES_DID_REFRESH_NOTIFICATION
                                                object:nil];
     
-    roomImages = [[NSDictionary alloc] initWithObjectsAndKeys: @"GenericRoom", @"Unassigned",  @"BedroomRoom", @"Master Bedroom", @"LivingRoom", @"Living Room", @"DiningRoom", @"Dining Room", @"KitchenRoom", @"Kitchen", nil];
-    
-    rooms = [[NSArray alloc] init];
+    //roomImages = [[NSDictionary alloc] initWithObjectsAndKeys: @"GenericRoom", @"Unassigned",  @"BedroomRoom", @"Master Bedroom", @"LivingRoom", @"Living Room", @"DiningRoom", @"Dining Room", @"KitchenRoom", @"Kitchen", nil];
     
     myVeraController = [VeraController sharedController];
-    rooms = [myVeraController.rooms allValues];
+    
+    userInfo = [flickUserInfo sharedUserInfo];
+    
+    NSArray *orderedRoomsIds = userInfo.roomOrder;
+    
+    if (orderedRoomsIds == nil) {
+        //First time usecase
+        NSArray *veraRooms = [myVeraController.rooms allValues];
+        orderedRoomsIds = [[NSArray alloc] initWithArray:[veraRooms valueForKeyPath:@"identifier"]];
+    }
+    
+    //Order the rooms according to user preference, adding any new rooms at the end
+    NSMutableDictionary *tempRooms = [[NSMutableDictionary alloc]
+                                        initWithDictionary:myVeraController.rooms];
+    NSMutableArray *orderedRooms = [[NSMutableArray alloc]
+                                        initWithCapacity:tempRooms.count];
+
+    for (NSString *roomId in orderedRoomsIds) {
+        VeraRoom *r = [tempRooms objectForKey:roomId];
+        
+        if (r != nil) {
+            [orderedRooms addObject:r];
+            [tempRooms removeObjectForKey:roomId];
+        }
+    }
+    [orderedRooms addObjectsFromArray:[tempRooms allValues]];
+    
+    //Save the new order back
+    orderedRoomsIds = [orderedRooms valueForKeyPath:@"identifier"];
+
+    ((flickUserInfo*)[flickUserInfo sharedUserInfo]).roomOrder = orderedRoomsIds;
+    
+    rooms = orderedRooms;
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,7 +117,6 @@
     
     if (cell == nil) {
         cell = [[flickRoomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-
     }
 
     VeraRoom *room = (VeraRoom*)[rooms objectAtIndex:indexPath.row];
@@ -94,11 +124,10 @@
     cell.delegate = self;
     cell.roomID = indexPath.row;
     cell.roomLabel.text = room.name;
-    cell.roomImageView.image = [UIImage imageNamed:[roomImages objectForKey:room.name]];
+    cell.roomImageView.image = [userInfo getImageForRoomId:room.identifier];
     
     bool switchOn = false;
     bool hasLight = false;
-    
     for (NSObject *device in room.devices) {
         if ([device isKindOfClass:[ZwaveSwitch class]]) {
             if ([(ZwaveSwitch*)device on]) {
@@ -107,6 +136,7 @@
             hasLight = true;
         }
     }
+    
     if (hasLight) {
         cell.roomSwitch.hidden = false;
         [cell.roomSwitch setOn:switchOn animated:false];
@@ -154,27 +184,8 @@ NSIndexPath *segueHitIndex;
     {
         NSLog (@"Devices Refreshed notification is successfully received!");
         
-        if (rooms.count != myVeraController.rooms.count) {
-            //This is the first time we've gotten the state, or state has changed, refresh
-            
-            rooms = [myVeraController.rooms allValues];
-            
-            /*VeraRoom *firstRoom = nil;
-            //We want to reorder the rooms by moving the unassigned room to the end
-            for (VeraRoom *room in myVeraController.rooms) {
-                
-                if (!firstRoom) {
-                    firstRoom = room;
-                    continue;
-                }
-                rooms = [rooms arrayByAddingObject:room];
-            }
-            rooms = [rooms arrayByAddingObject:firstRoom];
-             */
-            
-            //Set up the heartbeat
-            [myVeraController startHeartbeat];
-        }
+        //TODO: Refresh the rooms, the app won't reflect new rooms until restarted
+        //rooms = [myVeraController.rooms allValues];
         
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:false];
     }
@@ -233,7 +244,6 @@ NSIndexPath *segueHitIndex;
     
     newController.title = room.name;
     newController.room = room;
-    newController.roomImageString = [roomImages objectForKey:room.name];
 }
 
 

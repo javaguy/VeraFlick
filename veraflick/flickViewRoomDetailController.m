@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Punit. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "flickViewRoomDetailController.h"
 #import "VeraSceneTrigger.h"
 #import "ZwaveNode.h"
@@ -16,9 +17,11 @@
 #import "FlickRoomDimmerCell.h"
 #import "FlickRoomDetailCellProtocol.h"
 #import "UIImage+ImageEffects.h"
+#import "UIImage+TPAdditions.h"
+#import "flickUserInfo.h"
 
 
-@interface flickViewRoomDetailController () <FlickRoomDetailCellProtocol>
+@interface flickViewRoomDetailController () <FlickRoomDetailCellProtocol, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @end
 
@@ -49,7 +52,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     UIImageView *bgView = [[UIImageView alloc] init];
-    bgView.image = [[UIImage imageNamed:self.roomImageString] applyLightDarkEffect];
+    bgView.image = [[[flickUserInfo sharedUserInfo] getImageForRoomId:self.room.identifier] applyLightDarkEffect];
     bgView.contentMode = UIViewContentModeScaleAspectFill;
     self.tableView.backgroundView = bgView;
 }
@@ -261,6 +264,110 @@
         NSLog(@"Light toggled");
     }];
 }
+
+-(IBAction)addButtonPress:(id)sender {
+    NSString *actionSheetTitle = @"Select Action"; //Action Sheet Title
+    //NSString *destructiveTitle = @"Destructive Button"; //Action Sheet Button Titles
+    //NSString *other1 = @"Add Scene";
+    //NSString *other2 = @"Add Light";
+    NSString *other3 = @"Set Room's Image";
+    NSString *cancelTitle = @"Cancel";
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:actionSheetTitle
+                                  delegate:self
+                                  cancelButtonTitle:cancelTitle
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:other3, nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    //Get the name of the current pressed button
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if  ([buttonTitle isEqualToString:@"Destructive Button"]) {
+        NSLog(@"Destructive pressed --> Delete Something");
+    }
+    if ([buttonTitle isEqualToString:@"Add Scene"]) {
+        NSLog(@"Other 1 pressed");
+    }
+    if ([buttonTitle isEqualToString:@"Add Light"]) {
+        NSLog(@"Other 2 pressed");
+    }
+    if ([buttonTitle isEqualToString:@"Set Room's Image"]) {
+        NSLog(@"Other 3 pressed");
+        
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.delegate = self;
+        
+//        if (sourceType == UIImagePickerControllerSourceTypeCamera)
+//        {
+//            /*
+//             The user wants to use the camera interface. Set up our custom overlay view for the camera.
+//             */
+//            imagePickerController.showsCameraControls = NO;
+//            
+//            /*
+//             Load the overlay view from the OverlayView nib file. Self is the File's Owner for the nib file, so the overlayView outlet is set to the main view in the nib. Pass that view to the image picker controller to use as its overlay view, and set self's reference to the view to nil.
+//             */
+//            [[NSBundle mainBundle] loadNibNamed:@"OverlayView" owner:self options:nil];
+//            self.overlayView.frame = imagePickerController.cameraOverlayView.frame;
+//            imagePickerController.cameraOverlayView = self.overlayView;
+//            self.overlayView = nil;
+//        }
+        
+        //self.imagePickerController = imagePickerController;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+    if ([buttonTitle isEqualToString:@"Cancel Button"]) {
+        NSLog(@"Cancel pressed --> Cancel ActionSheet");
+    }
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+// This method is called when an image has been chosen from the library or taken from the camera.
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    
+    UIImage *smallImage = [image imageScaledToSize:CGSizeMake(640.0f, (image.size.height/image.size.width)*640.0f)];
+    
+    flickUserInfo *userInfo = [flickUserInfo sharedUserInfo];
+    
+    [userInfo setImage:smallImage ForRoomId:self.room.identifier];
+    
+    UIImageView *bgView = (UIImageView*)self.tableView.backgroundView;
+    
+    bgView.image = image;
+    bgView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    
+
+    [self dismissViewControllerAnimated:YES completion:^() {
+        
+        flickUserInfo *userInfo = [flickUserInfo sharedUserInfo];
+        
+        UIImageView *bgView = (UIImageView*)self.tableView.backgroundView;
+        bgView.image = [[userInfo getImageForRoomId:self.room.identifier] applyLightDarkEffect];
+        
+        CATransition *transition = [CATransition animation];
+        transition.duration = 1.0f;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        transition.type = kCATransitionFade;
+        
+        [bgView.layer addAnimation:transition forKey:nil];
+    }];
+}
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 
 /*

@@ -13,8 +13,8 @@
 #import "ZwaveNode.h"
 #import "ZwaveSwitch.h"
 
-#define MY_MIOS_USERNAME  @"javaguy01"
-#define MY_MIOS_PASSWD @"Xunit12";
+//#define MY_MIOS_USERNAME  @"javaguy01"
+//#define MY_MIOS_PASSWD @"Xunit12";
 
 @implementation flickAppDelegate {
     VeraController *myVeraController;
@@ -32,15 +32,20 @@
                                                  name:VERA_DEVICES_DID_REFRESH_NOTIFICATION
                                                object:nil];
     
+    self.userInfo = [flickUserInfo sharedUserInfo];
+    [self.userInfo getUserInfo];
+    
     myVeraController = [VeraController sharedController];
-    myVeraController.miosUsername = MY_MIOS_USERNAME;
-    myVeraController.miosPassword = MY_MIOS_PASSWD;
+    myVeraController.miosUsername = self.userInfo.userName;
+    myVeraController.miosPassword = self.userInfo.password;
     myVeraController.useMiosRemoteService = true;
     [myVeraController findVeraController];
 
     // Override point for customization after application launch.
     return YES;
 }
+
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -52,11 +57,19 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    //start the refresh timer
+    [myVeraController stopHeartbeat];
+    
+    [self.userInfo saveUserInfo];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    //Start the heartbeat timer again
+    [myVeraController startHeartbeat];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -76,14 +89,11 @@
     if ([[notification name] isEqualToString:VERA_DEVICES_DID_REFRESH_NOTIFICATION])
     {
         //Check to see if the splashscreen is displayed (by checking if the navigation controller is not loaded.
-        //TODO: hacky
-        
-        //Push the Room Detail View
         if (!loadedMainView) {
-            //[self performSelectorOnMainThread:@selector(launchMainViewController) withObject:nil waitUntilDone:false];
+            [self performSelectorOnMainThread:@selector(launchMainViewController) withObject:nil waitUntilDone:false];
             
             //Set up the heartbeat
-            //[myVeraController startHeartbeat];
+            [myVeraController startHeartbeat];
             loadedMainView = true;
         }
         

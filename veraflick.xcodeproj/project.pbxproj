@@ -21,6 +21,8 @@
 		8C31F31F180BD1130098B37E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C31F2FB180BD1120098B37E /* UIKit.framework */; };
 		8C31F327180BD1130098B37E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C31F325180BD1130098B37E /* InfoPlist.strings */; };
 		8C31F329180BD1130098B37E /* veraflickTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C31F328180BD1130098B37E /* veraflickTests.m */; };
+		8C3F207A185CE29300451DAE /* flickUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F2079185CE29300451DAE /* flickUserInfo.m */; };
+		8C3F207D185DD2C900451DAE /* UIImage+TPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F207C185DD2C900451DAE /* UIImage+TPAdditions.m */; };
 		8C54886618496F5A00B6AA8E /* FlickRoomSceneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */; };
 		8C54886A1849848B00B6AA8E /* FlickRoomSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */; };
 		8C54886D184986E900B6AA8E /* FlickRoomDimmerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */; };
@@ -72,6 +74,10 @@
 		8C31F324180BD1130098B37E /* veraflickTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "veraflickTests-Info.plist"; sourceTree = "<group>"; };
 		8C31F326180BD1130098B37E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8C31F328180BD1130098B37E /* veraflickTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = veraflickTests.m; sourceTree = "<group>"; };
+		8C3F2078185CE29300451DAE /* flickUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flickUserInfo.h; sourceTree = "<group>"; };
+		8C3F2079185CE29300451DAE /* flickUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flickUserInfo.m; sourceTree = "<group>"; };
+		8C3F207B185DD2C900451DAE /* UIImage+TPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TPAdditions.h"; sourceTree = "<group>"; };
+		8C3F207C185DD2C900451DAE /* UIImage+TPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TPAdditions.m"; sourceTree = "<group>"; };
 		8C54886418496F5A00B6AA8E /* FlickRoomSceneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickRoomSceneCell.h; sourceTree = "<group>"; };
 		8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomSceneCell.m; sourceTree = "<group>"; };
 		8C5488671849843100B6AA8E /* FlickRoomDetailCellProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickRoomDetailCellProtocol.h; sourceTree = "<group>"; };
@@ -190,6 +196,8 @@
 				8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */,
 				8C54886B184986E900B6AA8E /* FlickRoomDimmerCell.h */,
 				8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */,
+				8C3F2078185CE29300451DAE /* flickUserInfo.h */,
+				8C3F2079185CE29300451DAE /* flickUserInfo.m */,
 				8C31F315180BD1120098B37E /* Images.xcassets */,
 				8C31F2FE180BD1120098B37E /* Supporting Files */,
 			);
@@ -230,6 +238,8 @@
 			children = (
 				8C54886F184B1AAE00B6AA8E /* UIImage+ImageEffects.h */,
 				8C548870184B1AAE00B6AA8E /* UIImage+ImageEffects.m */,
+				8C3F207B185DD2C900451DAE /* UIImage+TPAdditions.h */,
+				8C3F207C185DD2C900451DAE /* UIImage+TPAdditions.m */,
 			);
 			name = SupportLibraries;
 			sourceTree = "<group>";
@@ -375,6 +385,7 @@
 				8C548871184B1AAE00B6AA8E /* UIImage+ImageEffects.m in Sources */,
 				8C6426BE184141540037DD55 /* ZwaveSecuritySensor.m in Sources */,
 				8C6426B4184141540037DD55 /* IPCamera.m in Sources */,
+				8C3F207D185DD2C900451DAE /* UIImage+TPAdditions.m in Sources */,
 				8C64270D1841AA260037DD55 /* flickViewRoomController.m in Sources */,
 				8C6426C0184141540037DD55 /* ZwaveThermostat.m in Sources */,
 				8C6426B6184141540037DD55 /* VeraController.m in Sources */,
@@ -390,6 +401,7 @@
 				8C6427131841D3FB0037DD55 /* flickRoomCell.m in Sources */,
 				8C6426BF184141540037DD55 /* ZwaveSwitch.m in Sources */,
 				8C31F304180BD1120098B37E /* main.m in Sources */,
+				8C3F207A185CE29300451DAE /* flickUserInfo.m in Sources */,
 				8C54886A1849848B00B6AA8E /* FlickRoomSwitchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
