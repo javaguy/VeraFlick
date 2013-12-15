@@ -166,14 +166,27 @@
                                                 <action selector="dimmerValueChanged:" destination="OhX-vg-2zX" eventType="valueChanged" id="hrn-mZ-yPf"/>
                                             </connections>
                                         </slider>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BrigthnessMaxIcon" translatesAutoresizingMaskIntoConstraints="NO" id="y9j-YX-hDp">
-                                            <rect key="frame" x="276" y="48" width="21" height="21"/>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4t-1O-kAe">
+                                            <rect key="frame" x="275" y="48" width="22" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BrightnessMinIcon" translatesAutoresizingMaskIntoConstraints="NO" id="iW1-6m-04D">
-                                            <rect key="frame" x="26" y="48" width="21" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" image="BrigthnessMaxIcon">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="maxBrightnessSelected:" destination="OhX-vg-2zX" eventType="touchUpInside" id="hwG-C8-xV9"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5VN-ON-lRg">
+                                            <rect key="frame" x="25" y="48" width="22" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
+                                            <state key="normal" image="BrightnessMinIcon">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="minBrightnessSelected:" destination="OhX-vg-2zX" eventType="touchUpInside" id="CMM-NI-Jlz"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

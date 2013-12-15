@@ -23,6 +23,7 @@
     VeraController *myVeraController;
     NSArray *rooms;
     flickUserInfo *userInfo;
+    BOOL commandInProgress;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -88,6 +89,8 @@
     ((flickUserInfo*)[flickUserInfo sharedUserInfo]).roomOrder = orderedRoomsIds;
     
     rooms = orderedRooms;
+    
+    commandInProgress = false;
 }
 
 - (void)didReceiveMemoryWarning
@@ -154,16 +157,25 @@
     [self setLightsForRoom:room setOn:value];
 }
 
+int numLights;
 - (void)setLightsForRoom:(VeraRoom*)room setOn:(BOOL)setOn {
+    
+    numLights = 0;
+    commandInProgress = true;
     
     for (NSObject *node in room.devices)
     {
         if ([node isKindOfClass:[ZwaveSwitch class]]) {
             ZwaveSwitch *zwSwitch = (ZwaveSwitch*)node;
             
+            
+            numLights++;
             NSLog (@"Toggling Light - %@\n", zwSwitch.name);
             [zwSwitch setOn:setOn completion:^(){
                 NSLog(@"Light toggled\n");
+                if (--numLights == 0) {
+                    commandInProgress = false;
+                }
             }];
         }
     }
@@ -187,7 +199,11 @@ NSIndexPath *segueHitIndex;
         //TODO: Refresh the rooms, the app won't reflect new rooms until restarted
         //rooms = [myVeraController.rooms allValues];
         
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:false];
+        if (!commandInProgress) {
+            [self.tableView performSelectorOnMainThread:@selector(reloadData)
+                                             withObject:nil
+                                          waitUntilDone:false];
+        }
     }
 }
 

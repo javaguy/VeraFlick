@@ -25,7 +25,9 @@
 
 @end
 
-@implementation flickViewRoomDetailController
+@implementation flickViewRoomDetailController {
+    BOOL commandInProgress;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -50,6 +52,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    commandInProgress = false;
     
     UIImageView *bgView = [[UIImageView alloc] init];
     bgView.image = [[[flickUserInfo sharedUserInfo] getImageForRoomId:self.room.identifier] applyLightDarkEffect];
@@ -149,7 +153,7 @@
             else {
                 [cell.lightSlider setValue:0.0 animated:YES];
             }
-            NSLog(@"RoomViewDetailController:: Light switch %@ State %@ Brightness %d", node.name, ([(ZwaveDimmerSwitch*)node on]?@"ON":@"OFF"), [(ZwaveDimmerSwitch*)node brightness]);
+            NSLog(@"RoomViewDetailController:: Light switch %@ State %@ Brightness %d", node.name, ([(ZwaveDimmerSwitch*)node on]?@"ON":@"OFF"), (int)[(ZwaveDimmerSwitch*)node brightness]);
             
             returnCell = cell;
         }
@@ -226,14 +230,18 @@
     }
 }*/
 
+#pragma mark - Vera Control
+
 - (void) veraNotificationReceived:(NSNotification *) notification {
     if ([[notification name] isEqualToString:VERA_DEVICES_DID_REFRESH_NOTIFICATION]) {
-        //Refresh the state.
+        //Refresh the state if no commands are in progress.
         //TODO: should check to see if the room is still valid
-        
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:false];
+        if (!commandInProgress) {
+            [self.tableView performSelectorOnMainThread:@selector(reloadData)
+                                             withObject:nil
+                                          waitUntilDone:false];
+        }
     }
-
 }
 
 -(void)sceneTriggered:(id)sender {
@@ -244,15 +252,17 @@
     [scene runSceneCompletion:^(){
         NSLog(@"Scene triggered\n");
     }];
- 
 }
 
 -(void)switchTriggered:(id)sender withState:(BOOL)on {
     ZwaveSwitch *mySwitch = [(FlickRoomSwitchCell*)sender object];
     
     NSLog (@"VeraRoomDetailContter_switchTriggered:: %@, %@", mySwitch.name, (on?@"ON":@"OFF"));
+    
+    commandInProgress = true;
     [mySwitch setOn:on completion:^() {
         NSLog(@"Light toggled");
+        commandInProgress = false;
     }];
 }
 
@@ -260,10 +270,15 @@
     ZwaveDimmerSwitch *mySwitch = (ZwaveDimmerSwitch*)[(FlickRoomDimmerCell*)sender object];
     
     NSLog (@"VeraRoomDetailController_dimmerSwitchTriggered:: %@, %@, %d", mySwitch.name, (mySwitch.on?@"ON":@"OFF"), brightness);
+    
+    commandInProgress = true;
     [mySwitch setBrightness:brightness completion:^() {
         NSLog(@"Light toggled");
+        commandInProgress = false;
     }];
 }
+
+#pragma mark - Action Sheet Commands
 
 -(IBAction)addButtonPress:(id)sender {
     NSString *actionSheetTitle = @"Select Action"; //Action Sheet Title

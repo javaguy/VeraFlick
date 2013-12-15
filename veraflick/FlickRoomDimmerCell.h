@@ -15,5 +15,7 @@
 @property (atomic, strong) IBOutlet UISlider *lightSlider;
 
 -(IBAction)dimmerValueChanged:(id)sender;
+-(IBAction)maxBrightnessSelected:(id)sender;
+-(IBAction)minBrightnessSelected:(id)sender;
 
 @end

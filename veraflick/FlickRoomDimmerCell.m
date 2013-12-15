@@ -35,4 +35,18 @@
         [self.delegate dimmerSwitchTriggered:self withBrightness:newValue];
     }
 }
+
+-(IBAction)maxBrightnessSelected:(id)sender {
+    if (self.delegate) {
+        [self.delegate switchTriggered:self withState:true];
+    }
+    self.lightSlider.value = 100.0f;
+}
+
+-(IBAction)minBrightnessSelected:(id)sender {
+    if (self.delegate) {
+        [self.delegate switchTriggered:self withState:false];
+    }
+    self.lightSlider.value = 0.0f;
+}
 @end
