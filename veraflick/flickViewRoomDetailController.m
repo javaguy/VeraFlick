@@ -56,8 +56,10 @@
     commandInProgress = false;
     
     UIImageView *bgView = [[UIImageView alloc] init];
+    
     bgView.image = [[[flickUserInfo sharedUserInfo] getImageForRoomId:self.room.identifier] applyLightDarkEffect];
     bgView.contentMode = UIViewContentModeScaleAspectFill;
+    
     self.tableView.backgroundView = bgView;
 }
 
@@ -284,17 +286,31 @@
     NSString *actionSheetTitle = @"Select Action"; //Action Sheet Title
     //NSString *destructiveTitle = @"Destructive Button"; //Action Sheet Button Titles
     //NSString *other1 = @"Add Scene";
-    //NSString *other2 = @"Add Light";
-    NSString *other3 = @"Set Room's Image";
+    NSString *other2 = @"Set Room's Image";
+    NSString *other3 = @"Clear Room's Image";
     NSString *cancelTitle = @"Cancel";
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+    flickUserInfo *userInfo = [flickUserInfo sharedUserInfo];
+
+    if ([userInfo isCustomImageSetForRoomId:self.room.identifier]) {
+    
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:actionSheetTitle
                                   delegate:self
                                   cancelButtonTitle:cancelTitle
                                   destructiveButtonTitle:nil
-                                  otherButtonTitles:other3, nil];
-    [actionSheet showInView:self.view];
+                                  otherButtonTitles:other2, other3, nil];
+        [actionSheet showInView:self.view];
+    }
+    else {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                      initWithTitle:actionSheetTitle
+                                      delegate:self
+                                      cancelButtonTitle:cancelTitle
+                                      destructiveButtonTitle:nil
+                                      otherButtonTitles:other2, nil];
+        [actionSheet showInView:self.view];
+    }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -306,11 +322,8 @@
     if ([buttonTitle isEqualToString:@"Add Scene"]) {
         NSLog(@"Other 1 pressed");
     }
-    if ([buttonTitle isEqualToString:@"Add Light"]) {
-        NSLog(@"Other 2 pressed");
-    }
     if ([buttonTitle isEqualToString:@"Set Room's Image"]) {
-        NSLog(@"Other 3 pressed");
+        NSLog(@"Other 2 pressed");
         
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
@@ -336,12 +349,41 @@
         //self.imagePickerController = imagePickerController;
         [self presentViewController:imagePickerController animated:YES completion:nil];
     }
+    if ([buttonTitle isEqualToString:@"Clear Room's Image"]) {
+        NSLog(@"Other 3 pressed");
+        
+        flickUserInfo *userInfo = [flickUserInfo sharedUserInfo];
+        [userInfo setImage:nil ForRoomId:self.room.identifier];
+        
+        
+        UIImageView *bgView = (UIImageView*)self.tableView.backgroundView;
+        
+        bgView.image = [userInfo getImageForRoomId:self.room.identifier];
+        bgView.contentMode = UIViewContentModeScaleAspectFill;
+        
+        [self performSelector:@selector(swapBackgroundImageWithTransition) withObject:nil afterDelay:1];
+    }
     if ([buttonTitle isEqualToString:@"Cancel Button"]) {
         NSLog(@"Cancel pressed --> Cancel ActionSheet");
     }
 }
 
 #pragma mark - UIImagePickerControllerDelegate
+
+- (void)swapBackgroundImageWithTransition
+{
+    flickUserInfo *userInfo = [flickUserInfo sharedUserInfo];
+    
+    UIImageView *bgView = (UIImageView*)self.tableView.backgroundView;
+    bgView.image = [[userInfo getImageForRoomId:self.room.identifier] applyLightDarkEffect];
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.0f;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    
+    [bgView.layer addAnimation:transition forKey:nil];
+}
 
 // This method is called when an image has been chosen from the library or taken from the camera.
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -358,22 +400,10 @@
     
     bgView.image = image;
     bgView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    
 
     [self dismissViewControllerAnimated:YES completion:^() {
         
-        flickUserInfo *userInfo = [flickUserInfo sharedUserInfo];
-        
-        UIImageView *bgView = (UIImageView*)self.tableView.backgroundView;
-        bgView.image = [[userInfo getImageForRoomId:self.room.identifier] applyLightDarkEffect];
-        
-        CATransition *transition = [CATransition animation];
-        transition.duration = 1.0f;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.type = kCATransitionFade;
-        
-        [bgView.layer addAnimation:transition forKey:nil];
+        [self swapBackgroundImageWithTransition];
     }];
 }
 

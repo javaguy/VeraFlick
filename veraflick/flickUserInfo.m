@@ -65,28 +65,42 @@ NSDictionary *roomImageDefaults;
 
 -(void)setImage:(UIImage*)image ForRoomId:(NSString*)roomId {
     
-    NSData *imageData = UIImagePNGRepresentation(image);
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString *imagePath =[documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.png", roomId, @"cached"]];
-    
-    NSLog((@"pre writing to file"));
-    if (![imageData writeToFile:imagePath atomically:NO])
-    {
-        NSLog((@"Failed to cache image data to disk"));
+    if (image != nil) {
+        NSData *imageData = UIImagePNGRepresentation(image);
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSString *imagePath =[documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.png", roomId, @"cached"]];
+        
+        NSLog((@"pre writing to file"));
+        if (![imageData writeToFile:imagePath atomically:NO])
+        {
+            NSLog((@"Failed to cache image data to disk"));
+        }
+        else
+        {
+            NSLog(@"the cachedImagedPath is %@",imagePath);
+            
+            //Save the image in the room Images dictionary
+            [self.roomImages setObject:imagePath forKey:roomId];
+        }
     }
-    else
-    {
-        NSLog(@"the cachedImagedPath is %@",imagePath);
-        
-        //Save the image in the room Images dictionary
-        [self.roomImages setObject:imagePath forKey:roomId];
-        
+    else {
+        [self.roomImages removeObjectForKey:roomId];
     }
     
     [self saveUserInfo];
+}
+
+-(bool)isCustomImageSetForRoomId:(NSString*)roomId {
+    NSString *pathToImage = [self.roomImages valueForKey:roomId];
+    
+    if (pathToImage == nil || [pathToImage isEqualToString:@""]) {
+        return false;
+    }
+    
+    return  true;
 }
 
 -(UIImage *)getImageForRoomId:(NSString*)roomId {

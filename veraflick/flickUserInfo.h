@@ -21,5 +21,6 @@
 -(void)getUserInfo;
 -(void)setImage:(UIImage*)image ForRoomId:(NSString*)roomId;
 -(UIImage *)getImageForRoomId:(NSString*)roomId;
+-(bool)isCustomImageSetForRoomId:(NSString*)roomId;
 
 @end
