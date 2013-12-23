@@ -8,6 +8,7 @@
 
 #import "flickAppDelegate.h"
 #import "flickViewRoomController.h"
+#import "FlickLoadingScreenViewController.h"
 #import "VeraRoom.h"
 #import "VeraController.h"
 #import "ZwaveNode.h"
@@ -18,6 +19,7 @@
 
 @implementation flickAppDelegate {
     VeraController *myVeraController;
+    BOOL isLoginDialogDisplayed;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -31,6 +33,7 @@
                                              selector:@selector(veraNotificationReceived:)
                                                  name:VERA_DEVICES_DID_REFRESH_NOTIFICATION
                                                object:nil];
+    isLoginDialogDisplayed = false;
     
     self.userInfo = [flickUserInfo sharedUserInfo];
     [self.userInfo getUserInfo];
@@ -88,21 +91,66 @@
     
     if ([[notification name] isEqualToString:VERA_DEVICES_DID_REFRESH_NOTIFICATION])
     {
-        //Check to see if the splashscreen is displayed (by checking if the navigation controller is not loaded.
-        if (!loadedMainView) {
-            [self performSelectorOnMainThread:@selector(launchMainViewController) withObject:nil waitUntilDone:false];
+        if ([notification.object isKindOfClass:[NSError class]]) {
+            NSLog (@"flickAppDelegate_veraNotificationReceived::Refresh notification received with error!");
+            //There was an error, assuming credentials issue.
+            //Ask user for credetials and then lets try again
+            [self performSelectorOnMainThread:@selector(showLoginDialog) withObject:nil waitUntilDone:false];
+        }
+        else {
+            //Check to see if the splashscreen is displayed (by checking if the navigation controller is not loaded.
+            if (!loadedMainView) {
+                //Check to see if the Login dialog was displayed (this means we prompted the user)
+                if (isLoginDialogDisplayed) {
+                    
+                }
+                
+                [self performSelectorOnMainThread:@selector(launchMainViewController) withObject:nil waitUntilDone:false];
+                
+                //Set up the heartbeat
+                [myVeraController startHeartbeat];
+                loadedMainView = true;
+            }
             
-            //Set up the heartbeat
-            [myVeraController startHeartbeat];
-            loadedMainView = true;
+            if (isLoginDialogDisplayed) {
+                //We prompted the user for credentials and looks like it was successful so save it
+                self.userInfo.userName = myVeraController.miosUsername;
+                self.userInfo.password = myVeraController.miosPassword;
+                [self.userInfo saveUserInfo];
+            }
         }
         
     }
     else if ([[notification name] isEqualToString:VERA_LOCATE_CONTROLLER_NOTIFICATION])
     {
-        NSLog (@"flickAppDelegate_veraNotificationReceived::Locate Controller notification is successfully received!");
-        [myVeraController refreshDevices];
+        if ([notification.object isKindOfClass:[NSError class]]) {
+            NSLog (@"flickAppDelegate_veraNotificationReceived::Locate Controller notification received with error!");
+            //There was an error, assuming credentials issue.
+            //Ask user for credetials and then lets try again
+            [self performSelectorOnMainThread:@selector(showLoginDialog) withObject:nil waitUntilDone:false];
+        }
+        else {
+            NSLog (@"flickAppDelegate_veraNotificationReceived::Locate Controller notification is successfully received!");
+            [myVeraController refreshDevices];
+        }
     }
+}
+
+-(void) showLoginDialog {
+    FlickLoadingScreenViewController *controller = (FlickLoadingScreenViewController*)self.window.rootViewController;
+    controller.delegate = self;
+    [controller showLoginView];
+    isLoginDialogDisplayed = true;
+}
+
+-(void)loginButtonPressed:(FlickLoadingScreenViewController*)sender {
+    //User submitted login information
+    myVeraController.miosUsername = sender.loginField.text;
+    myVeraController.miosPassword = sender.passwordField.text;
+    [myVeraController findVeraController];
+    
+    sender.loginButton.enabled = false;
+    [sender.activityIndicator startAnimating];
 }
 
 - (void) launchMainViewController {

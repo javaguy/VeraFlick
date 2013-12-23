@@ -21,6 +21,7 @@
 		8C31F31F180BD1130098B37E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C31F2FB180BD1120098B37E /* UIKit.framework */; };
 		8C31F327180BD1130098B37E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C31F325180BD1130098B37E /* InfoPlist.strings */; };
 		8C31F329180BD1130098B37E /* veraflickTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C31F328180BD1130098B37E /* veraflickTests.m */; };
+		8C3A19361867B72B00EE3CE2 /* FlickLoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3A19351867B72B00EE3CE2 /* FlickLoadingScreenViewController.m */; };
 		8C3F207A185CE29300451DAE /* flickUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F2079185CE29300451DAE /* flickUserInfo.m */; };
 		8C3F207D185DD2C900451DAE /* UIImage+TPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F207C185DD2C900451DAE /* UIImage+TPAdditions.m */; };
 		8C54886618496F5A00B6AA8E /* FlickRoomSceneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */; };
@@ -74,6 +75,8 @@
 		8C31F324180BD1130098B37E /* veraflickTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "veraflickTests-Info.plist"; sourceTree = "<group>"; };
 		8C31F326180BD1130098B37E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8C31F328180BD1130098B37E /* veraflickTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = veraflickTests.m; sourceTree = "<group>"; };
+		8C3A19341867B72B00EE3CE2 /* FlickLoadingScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickLoadingScreenViewController.h; sourceTree = "<group>"; };
+		8C3A19351867B72B00EE3CE2 /* FlickLoadingScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickLoadingScreenViewController.m; sourceTree = "<group>"; };
 		8C3F2078185CE29300451DAE /* flickUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flickUserInfo.h; sourceTree = "<group>"; };
 		8C3F2079185CE29300451DAE /* flickUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flickUserInfo.m; sourceTree = "<group>"; };
 		8C3F207B185DD2C900451DAE /* UIImage+TPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TPAdditions.h"; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 				8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */,
 				8C3F2078185CE29300451DAE /* flickUserInfo.h */,
 				8C3F2079185CE29300451DAE /* flickUserInfo.m */,
+				8C3A19341867B72B00EE3CE2 /* FlickLoadingScreenViewController.h */,
+				8C3A19351867B72B00EE3CE2 /* FlickLoadingScreenViewController.m */,
 				8C31F315180BD1120098B37E /* Images.xcassets */,
 				8C31F2FE180BD1120098B37E /* Supporting Files */,
 			);
@@ -403,6 +408,7 @@
 				8C31F304180BD1120098B37E /* main.m in Sources */,
 				8C3F207A185CE29300451DAE /* flickUserInfo.m in Sources */,
 				8C54886A1849848B00B6AA8E /* FlickRoomSwitchCell.m in Sources */,
+				8C3A19361867B72B00EE3CE2 /* FlickLoadingScreenViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

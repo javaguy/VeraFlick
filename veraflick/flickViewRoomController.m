@@ -53,23 +53,19 @@
                                                  name:VERA_DEVICES_DID_REFRESH_NOTIFICATION
                                                object:nil];
     
-    //roomImages = [[NSDictionary alloc] initWithObjectsAndKeys: @"GenericRoom", @"Unassigned",  @"BedroomRoom", @"Master Bedroom", @"LivingRoom", @"Living Room", @"DiningRoom", @"Dining Room", @"KitchenRoom", @"Kitchen", nil];
-    
     myVeraController = [VeraController sharedController];
-    
     userInfo = [flickUserInfo sharedUserInfo];
     
     NSArray *orderedRoomsIds = userInfo.roomOrder;
-    
     if (orderedRoomsIds == nil) {
         //First time usecase
-        NSArray *veraRooms = [myVeraController.rooms allValues];
+        NSArray *veraRooms = [myVeraController.roomsDictionary allValues];
         orderedRoomsIds = [[NSArray alloc] initWithArray:[veraRooms valueForKeyPath:@"identifier"]];
     }
     
     //Order the rooms according to user preference, adding any new rooms at the end
     NSMutableDictionary *tempRooms = [[NSMutableDictionary alloc]
-                                        initWithDictionary:myVeraController.rooms];
+                                        initWithDictionary:myVeraController.roomsDictionary];
     NSMutableArray *orderedRooms = [[NSMutableArray alloc]
                                         initWithCapacity:tempRooms.count];
 
@@ -81,13 +77,11 @@
             [tempRooms removeObjectForKey:roomId];
         }
     }
-    [orderedRooms addObjectsFromArray:[tempRooms allValues]];
     
+    [orderedRooms addObjectsFromArray:[tempRooms allValues]];
     //Save the new order back
     orderedRoomsIds = [orderedRooms valueForKeyPath:@"identifier"];
-
     ((flickUserInfo*)[flickUserInfo sharedUserInfo]).roomOrder = orderedRoomsIds;
-    
     rooms = orderedRooms;
     
     commandInProgress = false;

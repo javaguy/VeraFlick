@@ -34,17 +34,8 @@ NSDictionary *roomImageDefaults;
     self.roomImages = [defaults objectForKey:@"roomImages"];
     self.roomOrder = [defaults objectForKey:@"roomOrder"];
     
-    //for now we hardcode
-    self.roomOrder = [[NSArray alloc] initWithObjects:@"1", @"3", @"2", @"4", @"0", nil];
-    
-    if (self.userName == nil || [self.userName isEqualToString:@""]) {
-        self.userName = @"javaguy01";
-        self.password = @"Xunit12";
-        
-        [defaults setObject:self.userName forKey:@"userName"];
-        [defaults setObject:self.password forKey:@"password"];
-        [defaults synchronize];
-    }
+    //This is to hardcode the values since no editing UI exists yet
+    //self.roomOrder = [[NSArray alloc] initWithObjects:@"1", @"3", @"2", @"4", @"0", nil];
     
     if (self.roomImages == nil) {
         self.roomImages = [[NSMutableDictionary alloc] init];
