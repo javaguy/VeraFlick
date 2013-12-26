@@ -1,0 +1,3 @@
+[submodule "VeraControl"]
+	path = VeraControl
+	url = https://github.com/javaguy/VeraControl.git
