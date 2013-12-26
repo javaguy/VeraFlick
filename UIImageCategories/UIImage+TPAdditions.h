@@ -2,8 +2,7 @@
 //  UIImage+TPAdditions.h
 //  veraflick
 //
-//  Created by Punit on 12/15/13.
-//  Copyright (c) 2013 Punit. All rights reserved.
+//  This was taken from gists by author Agassiyzh: https://gist.github.com/agassiyzh/1381253
 //
 
 #import <Foundation/Foundation.h>
