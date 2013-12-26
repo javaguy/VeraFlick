@@ -56,10 +56,8 @@
     commandInProgress = false;
     
     UIImageView *bgView = [[UIImageView alloc] init];
-    
     bgView.image = [[[flickUserInfo sharedUserInfo] getImageForRoomId:self.room.identifier] applyLightDarkEffect];
     bgView.contentMode = UIViewContentModeScaleAspectFill;
-    
     self.tableView.backgroundView = bgView;
 }
 
@@ -74,10 +72,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    
     if ([self.room.scenes count] == 0)
         return 1;
-    
     return 2;
 }
 
@@ -95,7 +91,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    
     if (section == 0 && [self.room.scenes count] != 0) {
         //Return the scene
         return [self.room.scenes count];
@@ -116,7 +111,6 @@
     // Configure the cell...
     if (indexPath.section == 0 && [self.room.scenes count] != 0) {
         //We are configuring a scene object
-        
         VeraSceneTrigger *scene = [self.room.scenes objectAtIndex:indexPath.row];
         cellToUse = 0;
         
@@ -237,7 +231,7 @@
 - (void) veraNotificationReceived:(NSNotification *) notification {
     if ([[notification name] isEqualToString:VERA_DEVICES_DID_REFRESH_NOTIFICATION]) {
         //Refresh the state if no commands are in progress.
-        //TODO: should check to see if the room is still valid
+        //TODO: should check to see if the room is still valid and dismiss otherwise
         if (!commandInProgress) {
             [self.tableView performSelectorOnMainThread:@selector(reloadData)
                                              withObject:nil
@@ -248,9 +242,7 @@
 
 -(void)sceneTriggered:(id)sender {
     VeraSceneTrigger *scene = [(FlickRoomSceneCell*)sender sceneObject];
-    
     NSLog (@"VeraRoomDetailContter_sceneTriggered:: %@", scene.name);
-    
     [scene runSceneCompletion:^(){
         NSLog(@"Scene triggered\n");
     }];
@@ -258,9 +250,7 @@
 
 -(void)switchTriggered:(id)sender withState:(BOOL)on {
     ZwaveSwitch *mySwitch = [(FlickRoomSwitchCell*)sender object];
-    
     NSLog (@"VeraRoomDetailContter_switchTriggered:: %@, %@", mySwitch.name, (on?@"ON":@"OFF"));
-    
     commandInProgress = true;
     [mySwitch setOn:on completion:^() {
         NSLog(@"Light toggled");
@@ -270,12 +260,10 @@
 
 -(void)dimmerSwitchTriggered:(id)sender withBrightness:(int)brightness {
     ZwaveDimmerSwitch *mySwitch = (ZwaveDimmerSwitch*)[(FlickRoomDimmerCell*)sender object];
-    
     NSLog (@"VeraRoomDetailController_dimmerSwitchTriggered:: %@, %@, %d", mySwitch.name, (mySwitch.on?@"ON":@"OFF"), brightness);
-    
     commandInProgress = true;
     [mySwitch setBrightness:brightness completion:^() {
-        NSLog(@"Light toggled");
+        NSLog(@"Light brightness set");
         commandInProgress = false;
     }];
 }
@@ -329,24 +317,6 @@
         imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         imagePickerController.delegate = self;
-        
-//        if (sourceType == UIImagePickerControllerSourceTypeCamera)
-//        {
-//            /*
-//             The user wants to use the camera interface. Set up our custom overlay view for the camera.
-//             */
-//            imagePickerController.showsCameraControls = NO;
-//            
-//            /*
-//             Load the overlay view from the OverlayView nib file. Self is the File's Owner for the nib file, so the overlayView outlet is set to the main view in the nib. Pass that view to the image picker controller to use as its overlay view, and set self's reference to the view to nil.
-//             */
-//            [[NSBundle mainBundle] loadNibNamed:@"OverlayView" owner:self options:nil];
-//            self.overlayView.frame = imagePickerController.cameraOverlayView.frame;
-//            imagePickerController.cameraOverlayView = self.overlayView;
-//            self.overlayView = nil;
-//        }
-        
-        //self.imagePickerController = imagePickerController;
         [self presentViewController:imagePickerController animated:YES completion:nil];
     }
     if ([buttonTitle isEqualToString:@"Clear Room's Image"]) {
@@ -355,12 +325,9 @@
         flickUserInfo *userInfo = [flickUserInfo sharedUserInfo];
         [userInfo setImage:nil ForRoomId:self.room.identifier];
         
-        
         UIImageView *bgView = (UIImageView*)self.tableView.backgroundView;
-        
         bgView.image = [userInfo getImageForRoomId:self.room.identifier];
         bgView.contentMode = UIViewContentModeScaleAspectFill;
-        
         [self performSelector:@selector(swapBackgroundImageWithTransition) withObject:nil afterDelay:1];
     }
     if ([buttonTitle isEqualToString:@"Cancel Button"]) {
@@ -389,7 +356,6 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    
     UIImage *smallImage = [image imageScaledToSize:CGSizeMake(640.0f, (image.size.height/image.size.width)*640.0f)];
     
     flickUserInfo *userInfo = [flickUserInfo sharedUserInfo];
@@ -397,12 +363,10 @@
     [userInfo setImage:smallImage ForRoomId:self.room.identifier];
     
     UIImageView *bgView = (UIImageView*)self.tableView.backgroundView;
-    
     bgView.image = image;
     bgView.contentMode = UIViewContentModeScaleAspectFill;
 
     [self dismissViewControllerAnimated:YES completion:^() {
-        
         [self swapBackgroundImageWithTransition];
     }];
 }
@@ -412,8 +376,6 @@
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
-
 
 /*
  #pragma mark - Navigation
@@ -465,7 +427,5 @@
     return YES;
 }
 */
-
-
 
 @end

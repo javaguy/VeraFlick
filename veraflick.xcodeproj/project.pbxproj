@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C2AF90A186BEB2800E99A5B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF907186BEB2800E99A5B /* UIImage+ImageEffects.m */; };
+		8C2AF90B186BEB2800E99A5B /* UIImage+TPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF909186BEB2800E99A5B /* UIImage+TPAdditions.m */; };
+		8C2AF94D186BECD600E99A5B /* IPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF935186BECD600E99A5B /* IPCamera.m */; };
+		8C2AF94E186BECD600E99A5B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C2AF936186BECD600E99A5B /* README.md */; };
+		8C2AF94F186BECD600E99A5B /* VeraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF938186BECD600E99A5B /* VeraController.m */; };
+		8C2AF950186BECD600E99A5B /* VeraRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF93A186BECD600E99A5B /* VeraRoom.m */; };
+		8C2AF951186BECD600E99A5B /* VeraSceneTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF93C186BECD600E99A5B /* VeraSceneTrigger.m */; };
+		8C2AF952186BECD600E99A5B /* ZwaveDimmerSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF93E186BECD600E99A5B /* ZwaveDimmerSwitch.m */; };
+		8C2AF953186BECD600E99A5B /* ZwaveHumiditySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF940186BECD600E99A5B /* ZwaveHumiditySensor.m */; };
+		8C2AF954186BECD600E99A5B /* ZwaveLock.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF942186BECD600E99A5B /* ZwaveLock.m */; };
+		8C2AF955186BECD600E99A5B /* ZwaveNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF944186BECD600E99A5B /* ZwaveNode.m */; };
+		8C2AF956186BECD600E99A5B /* ZwavePhillipsHueBulb.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF946186BECD600E99A5B /* ZwavePhillipsHueBulb.m */; };
+		8C2AF957186BECD600E99A5B /* ZwaveSecuritySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF948186BECD600E99A5B /* ZwaveSecuritySensor.m */; };
+		8C2AF958186BECD600E99A5B /* ZwaveSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF94A186BECD600E99A5B /* ZwaveSwitch.m */; };
+		8C2AF959186BECD600E99A5B /* ZwaveThermostat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2AF94C186BECD600E99A5B /* ZwaveThermostat.m */; };
 		8C31F2F8180BD1120098B37E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C31F2F7180BD1120098B37E /* Foundation.framework */; };
 		8C31F2FA180BD1120098B37E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C31F2F9180BD1120098B37E /* CoreGraphics.framework */; };
 		8C31F2FC180BD1120098B37E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C31F2FB180BD1120098B37E /* UIKit.framework */; };
@@ -23,24 +38,9 @@
 		8C31F329180BD1130098B37E /* veraflickTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C31F328180BD1130098B37E /* veraflickTests.m */; };
 		8C3A19361867B72B00EE3CE2 /* FlickLoadingScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3A19351867B72B00EE3CE2 /* FlickLoadingScreenViewController.m */; };
 		8C3F207A185CE29300451DAE /* flickUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F2079185CE29300451DAE /* flickUserInfo.m */; };
-		8C3F207D185DD2C900451DAE /* UIImage+TPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C3F207C185DD2C900451DAE /* UIImage+TPAdditions.m */; };
 		8C54886618496F5A00B6AA8E /* FlickRoomSceneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */; };
 		8C54886A1849848B00B6AA8E /* FlickRoomSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */; };
 		8C54886D184986E900B6AA8E /* FlickRoomDimmerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */; };
-		8C548871184B1AAE00B6AA8E /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C548870184B1AAE00B6AA8E /* UIImage+ImageEffects.m */; };
-		8C6426B4184141540037DD55 /* IPCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64269C184141540037DD55 /* IPCamera.m */; };
-		8C6426B5184141540037DD55 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8C64269D184141540037DD55 /* README.md */; };
-		8C6426B6184141540037DD55 /* VeraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64269F184141540037DD55 /* VeraController.m */; };
-		8C6426B7184141540037DD55 /* VeraRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426A1184141540037DD55 /* VeraRoom.m */; };
-		8C6426B8184141540037DD55 /* VeraSceneTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426A3184141540037DD55 /* VeraSceneTrigger.m */; };
-		8C6426B9184141540037DD55 /* ZwaveDimmerSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426A5184141540037DD55 /* ZwaveDimmerSwitch.m */; };
-		8C6426BA184141540037DD55 /* ZwaveHumiditySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426A7184141540037DD55 /* ZwaveHumiditySensor.m */; };
-		8C6426BB184141540037DD55 /* ZwaveLock.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426A9184141540037DD55 /* ZwaveLock.m */; };
-		8C6426BC184141540037DD55 /* ZwaveNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426AB184141540037DD55 /* ZwaveNode.m */; };
-		8C6426BD184141540037DD55 /* ZwavePhillipsHueBulb.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426AD184141540037DD55 /* ZwavePhillipsHueBulb.m */; };
-		8C6426BE184141540037DD55 /* ZwaveSecuritySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426AF184141540037DD55 /* ZwaveSecuritySensor.m */; };
-		8C6426BF184141540037DD55 /* ZwaveSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426B1184141540037DD55 /* ZwaveSwitch.m */; };
-		8C6426C0184141540037DD55 /* ZwaveThermostat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6426B3184141540037DD55 /* ZwaveThermostat.m */; };
 		8C64270D1841AA260037DD55 /* flickViewRoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64270C1841AA260037DD55 /* flickViewRoomController.m */; };
 		8C6427101841AA610037DD55 /* flickViewRoomDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64270F1841AA610037DD55 /* flickViewRoomDetailController.m */; };
 		8C6427131841D3FB0037DD55 /* flickRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6427121841D3FB0037DD55 /* flickRoomCell.m */; };
@@ -57,6 +57,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8C2AF906186BEB2800E99A5B /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		8C2AF907186BEB2800E99A5B /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		8C2AF908186BEB2800E99A5B /* UIImage+TPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TPAdditions.h"; sourceTree = "<group>"; };
+		8C2AF909186BEB2800E99A5B /* UIImage+TPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TPAdditions.m"; sourceTree = "<group>"; };
+		8C2AF934186BECD600E99A5B /* IPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCamera.h; sourceTree = "<group>"; };
+		8C2AF935186BECD600E99A5B /* IPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPCamera.m; sourceTree = "<group>"; };
+		8C2AF936186BECD600E99A5B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		8C2AF937186BECD600E99A5B /* VeraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeraController.h; sourceTree = "<group>"; };
+		8C2AF938186BECD600E99A5B /* VeraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeraController.m; sourceTree = "<group>"; };
+		8C2AF939186BECD600E99A5B /* VeraRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeraRoom.h; sourceTree = "<group>"; };
+		8C2AF93A186BECD600E99A5B /* VeraRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeraRoom.m; sourceTree = "<group>"; };
+		8C2AF93B186BECD600E99A5B /* VeraSceneTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeraSceneTrigger.h; sourceTree = "<group>"; };
+		8C2AF93C186BECD600E99A5B /* VeraSceneTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeraSceneTrigger.m; sourceTree = "<group>"; };
+		8C2AF93D186BECD600E99A5B /* ZwaveDimmerSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveDimmerSwitch.h; sourceTree = "<group>"; };
+		8C2AF93E186BECD600E99A5B /* ZwaveDimmerSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveDimmerSwitch.m; sourceTree = "<group>"; };
+		8C2AF93F186BECD600E99A5B /* ZwaveHumiditySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveHumiditySensor.h; sourceTree = "<group>"; };
+		8C2AF940186BECD600E99A5B /* ZwaveHumiditySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveHumiditySensor.m; sourceTree = "<group>"; };
+		8C2AF941186BECD600E99A5B /* ZwaveLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveLock.h; sourceTree = "<group>"; };
+		8C2AF942186BECD600E99A5B /* ZwaveLock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveLock.m; sourceTree = "<group>"; };
+		8C2AF943186BECD600E99A5B /* ZwaveNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveNode.h; sourceTree = "<group>"; };
+		8C2AF944186BECD600E99A5B /* ZwaveNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveNode.m; sourceTree = "<group>"; };
+		8C2AF945186BECD600E99A5B /* ZwavePhillipsHueBulb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwavePhillipsHueBulb.h; sourceTree = "<group>"; };
+		8C2AF946186BECD600E99A5B /* ZwavePhillipsHueBulb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwavePhillipsHueBulb.m; sourceTree = "<group>"; };
+		8C2AF947186BECD600E99A5B /* ZwaveSecuritySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveSecuritySensor.h; sourceTree = "<group>"; };
+		8C2AF948186BECD600E99A5B /* ZwaveSecuritySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveSecuritySensor.m; sourceTree = "<group>"; };
+		8C2AF949186BECD600E99A5B /* ZwaveSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveSwitch.h; sourceTree = "<group>"; };
+		8C2AF94A186BECD600E99A5B /* ZwaveSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveSwitch.m; sourceTree = "<group>"; };
+		8C2AF94B186BECD600E99A5B /* ZwaveThermostat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveThermostat.h; sourceTree = "<group>"; };
+		8C2AF94C186BECD600E99A5B /* ZwaveThermostat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveThermostat.m; sourceTree = "<group>"; };
 		8C31F2F4180BD1120098B37E /* veraflick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = veraflick.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C31F2F7180BD1120098B37E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8C31F2F9180BD1120098B37E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -79,8 +108,6 @@
 		8C3A19351867B72B00EE3CE2 /* FlickLoadingScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickLoadingScreenViewController.m; sourceTree = "<group>"; };
 		8C3F2078185CE29300451DAE /* flickUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flickUserInfo.h; sourceTree = "<group>"; };
 		8C3F2079185CE29300451DAE /* flickUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flickUserInfo.m; sourceTree = "<group>"; };
-		8C3F207B185DD2C900451DAE /* UIImage+TPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TPAdditions.h"; sourceTree = "<group>"; };
-		8C3F207C185DD2C900451DAE /* UIImage+TPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TPAdditions.m"; sourceTree = "<group>"; };
 		8C54886418496F5A00B6AA8E /* FlickRoomSceneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickRoomSceneCell.h; sourceTree = "<group>"; };
 		8C54886518496F5A00B6AA8E /* FlickRoomSceneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomSceneCell.m; sourceTree = "<group>"; };
 		8C5488671849843100B6AA8E /* FlickRoomDetailCellProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickRoomDetailCellProtocol.h; sourceTree = "<group>"; };
@@ -88,33 +115,6 @@
 		8C5488691849848B00B6AA8E /* FlickRoomSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomSwitchCell.m; sourceTree = "<group>"; };
 		8C54886B184986E900B6AA8E /* FlickRoomDimmerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickRoomDimmerCell.h; sourceTree = "<group>"; };
 		8C54886C184986E900B6AA8E /* FlickRoomDimmerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickRoomDimmerCell.m; sourceTree = "<group>"; };
-		8C54886F184B1AAE00B6AA8E /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
-		8C548870184B1AAE00B6AA8E /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
-		8C64269B184141540037DD55 /* IPCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCamera.h; sourceTree = "<group>"; };
-		8C64269C184141540037DD55 /* IPCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPCamera.m; sourceTree = "<group>"; };
-		8C64269D184141540037DD55 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		8C64269E184141540037DD55 /* VeraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeraController.h; sourceTree = "<group>"; };
-		8C64269F184141540037DD55 /* VeraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeraController.m; sourceTree = "<group>"; };
-		8C6426A0184141540037DD55 /* VeraRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeraRoom.h; sourceTree = "<group>"; };
-		8C6426A1184141540037DD55 /* VeraRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeraRoom.m; sourceTree = "<group>"; };
-		8C6426A2184141540037DD55 /* VeraSceneTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VeraSceneTrigger.h; sourceTree = "<group>"; };
-		8C6426A3184141540037DD55 /* VeraSceneTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VeraSceneTrigger.m; sourceTree = "<group>"; };
-		8C6426A4184141540037DD55 /* ZwaveDimmerSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveDimmerSwitch.h; sourceTree = "<group>"; };
-		8C6426A5184141540037DD55 /* ZwaveDimmerSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveDimmerSwitch.m; sourceTree = "<group>"; };
-		8C6426A6184141540037DD55 /* ZwaveHumiditySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveHumiditySensor.h; sourceTree = "<group>"; };
-		8C6426A7184141540037DD55 /* ZwaveHumiditySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveHumiditySensor.m; sourceTree = "<group>"; };
-		8C6426A8184141540037DD55 /* ZwaveLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveLock.h; sourceTree = "<group>"; };
-		8C6426A9184141540037DD55 /* ZwaveLock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveLock.m; sourceTree = "<group>"; };
-		8C6426AA184141540037DD55 /* ZwaveNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveNode.h; sourceTree = "<group>"; };
-		8C6426AB184141540037DD55 /* ZwaveNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveNode.m; sourceTree = "<group>"; };
-		8C6426AC184141540037DD55 /* ZwavePhillipsHueBulb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwavePhillipsHueBulb.h; sourceTree = "<group>"; };
-		8C6426AD184141540037DD55 /* ZwavePhillipsHueBulb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwavePhillipsHueBulb.m; sourceTree = "<group>"; };
-		8C6426AE184141540037DD55 /* ZwaveSecuritySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveSecuritySensor.h; sourceTree = "<group>"; };
-		8C6426AF184141540037DD55 /* ZwaveSecuritySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveSecuritySensor.m; sourceTree = "<group>"; };
-		8C6426B0184141540037DD55 /* ZwaveSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveSwitch.h; sourceTree = "<group>"; };
-		8C6426B1184141540037DD55 /* ZwaveSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveSwitch.m; sourceTree = "<group>"; };
-		8C6426B2184141540037DD55 /* ZwaveThermostat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZwaveThermostat.h; sourceTree = "<group>"; };
-		8C6426B3184141540037DD55 /* ZwaveThermostat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZwaveThermostat.m; sourceTree = "<group>"; };
 		8C64270B1841AA260037DD55 /* flickViewRoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flickViewRoomController.h; sourceTree = "<group>"; };
 		8C64270C1841AA260037DD55 /* flickViewRoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = flickViewRoomController.m; sourceTree = "<group>"; };
 		8C64270E1841AA610037DD55 /* flickViewRoomDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flickViewRoomDetailController.h; sourceTree = "<group>"; };
@@ -147,11 +147,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C2AF905186BEB2800E99A5B /* UIImageCategories */ = {
+			isa = PBXGroup;
+			children = (
+				8C2AF906186BEB2800E99A5B /* UIImage+ImageEffects.h */,
+				8C2AF907186BEB2800E99A5B /* UIImage+ImageEffects.m */,
+				8C2AF908186BEB2800E99A5B /* UIImage+TPAdditions.h */,
+				8C2AF909186BEB2800E99A5B /* UIImage+TPAdditions.m */,
+			);
+			path = UIImageCategories;
+			sourceTree = "<group>";
+		};
+		8C2AF933186BECD600E99A5B /* VeraControl */ = {
+			isa = PBXGroup;
+			children = (
+				8C2AF934186BECD600E99A5B /* IPCamera.h */,
+				8C2AF935186BECD600E99A5B /* IPCamera.m */,
+				8C2AF936186BECD600E99A5B /* README.md */,
+				8C2AF937186BECD600E99A5B /* VeraController.h */,
+				8C2AF938186BECD600E99A5B /* VeraController.m */,
+				8C2AF939186BECD600E99A5B /* VeraRoom.h */,
+				8C2AF93A186BECD600E99A5B /* VeraRoom.m */,
+				8C2AF93B186BECD600E99A5B /* VeraSceneTrigger.h */,
+				8C2AF93C186BECD600E99A5B /* VeraSceneTrigger.m */,
+				8C2AF93D186BECD600E99A5B /* ZwaveDimmerSwitch.h */,
+				8C2AF93E186BECD600E99A5B /* ZwaveDimmerSwitch.m */,
+				8C2AF93F186BECD600E99A5B /* ZwaveHumiditySensor.h */,
+				8C2AF940186BECD600E99A5B /* ZwaveHumiditySensor.m */,
+				8C2AF941186BECD600E99A5B /* ZwaveLock.h */,
+				8C2AF942186BECD600E99A5B /* ZwaveLock.m */,
+				8C2AF943186BECD600E99A5B /* ZwaveNode.h */,
+				8C2AF944186BECD600E99A5B /* ZwaveNode.m */,
+				8C2AF945186BECD600E99A5B /* ZwavePhillipsHueBulb.h */,
+				8C2AF946186BECD600E99A5B /* ZwavePhillipsHueBulb.m */,
+				8C2AF947186BECD600E99A5B /* ZwaveSecuritySensor.h */,
+				8C2AF948186BECD600E99A5B /* ZwaveSecuritySensor.m */,
+				8C2AF949186BECD600E99A5B /* ZwaveSwitch.h */,
+				8C2AF94A186BECD600E99A5B /* ZwaveSwitch.m */,
+				8C2AF94B186BECD600E99A5B /* ZwaveThermostat.h */,
+				8C2AF94C186BECD600E99A5B /* ZwaveThermostat.m */,
+			);
+			path = VeraControl;
+			sourceTree = "<group>";
+		};
 		8C31F2EB180BD1120098B37E = {
 			isa = PBXGroup;
 			children = (
-				8C54886E184B1A7E00B6AA8E /* SupportLibraries */,
-				8C64269A184141540037DD55 /* VeraControl */,
+				8C2AF933186BECD600E99A5B /* VeraControl */,
+				8C2AF905186BEB2800E99A5B /* UIImageCategories */,
 				8C31F2FD180BD1120098B37E /* veraflick */,
 				8C31F322180BD1130098B37E /* veraflickTests */,
 				8C31F2F6180BD1120098B37E /* Frameworks */,
@@ -238,50 +281,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8C54886E184B1A7E00B6AA8E /* SupportLibraries */ = {
-			isa = PBXGroup;
-			children = (
-				8C54886F184B1AAE00B6AA8E /* UIImage+ImageEffects.h */,
-				8C548870184B1AAE00B6AA8E /* UIImage+ImageEffects.m */,
-				8C3F207B185DD2C900451DAE /* UIImage+TPAdditions.h */,
-				8C3F207C185DD2C900451DAE /* UIImage+TPAdditions.m */,
-			);
-			name = SupportLibraries;
-			sourceTree = "<group>";
-		};
-		8C64269A184141540037DD55 /* VeraControl */ = {
-			isa = PBXGroup;
-			children = (
-				8C64269B184141540037DD55 /* IPCamera.h */,
-				8C64269C184141540037DD55 /* IPCamera.m */,
-				8C64269D184141540037DD55 /* README.md */,
-				8C64269E184141540037DD55 /* VeraController.h */,
-				8C64269F184141540037DD55 /* VeraController.m */,
-				8C6426A0184141540037DD55 /* VeraRoom.h */,
-				8C6426A1184141540037DD55 /* VeraRoom.m */,
-				8C6426A2184141540037DD55 /* VeraSceneTrigger.h */,
-				8C6426A3184141540037DD55 /* VeraSceneTrigger.m */,
-				8C6426A4184141540037DD55 /* ZwaveDimmerSwitch.h */,
-				8C6426A5184141540037DD55 /* ZwaveDimmerSwitch.m */,
-				8C6426A6184141540037DD55 /* ZwaveHumiditySensor.h */,
-				8C6426A7184141540037DD55 /* ZwaveHumiditySensor.m */,
-				8C6426A8184141540037DD55 /* ZwaveLock.h */,
-				8C6426A9184141540037DD55 /* ZwaveLock.m */,
-				8C6426AA184141540037DD55 /* ZwaveNode.h */,
-				8C6426AB184141540037DD55 /* ZwaveNode.m */,
-				8C6426AC184141540037DD55 /* ZwavePhillipsHueBulb.h */,
-				8C6426AD184141540037DD55 /* ZwavePhillipsHueBulb.m */,
-				8C6426AE184141540037DD55 /* ZwaveSecuritySensor.h */,
-				8C6426AF184141540037DD55 /* ZwaveSecuritySensor.m */,
-				8C6426B0184141540037DD55 /* ZwaveSwitch.h */,
-				8C6426B1184141540037DD55 /* ZwaveSwitch.m */,
-				8C6426B2184141540037DD55 /* ZwaveThermostat.h */,
-				8C6426B3184141540037DD55 /* ZwaveThermostat.m */,
-			);
-			name = VeraControl;
-			path = ../VeraControl;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -364,7 +363,7 @@
 			files = (
 				8C31F30E180BD1120098B37E /* Main_iPad.storyboard in Resources */,
 				8C31F316180BD1120098B37E /* Images.xcassets in Resources */,
-				8C6426B5184141540037DD55 /* README.md in Resources */,
+				8C2AF94E186BECD600E99A5B /* README.md in Resources */,
 				8C31F30B180BD1120098B37E /* Main_iPhone.storyboard in Resources */,
 				8C31F302180BD1120098B37E /* InfoPlist.strings in Resources */,
 			);
@@ -386,29 +385,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C6427101841AA610037DD55 /* flickViewRoomDetailController.m in Sources */,
+				8C2AF94F186BECD600E99A5B /* VeraController.m in Sources */,
+				8C2AF954186BECD600E99A5B /* ZwaveLock.m in Sources */,
 				8C31F308180BD1120098B37E /* flickAppDelegate.m in Sources */,
-				8C548871184B1AAE00B6AA8E /* UIImage+ImageEffects.m in Sources */,
-				8C6426BE184141540037DD55 /* ZwaveSecuritySensor.m in Sources */,
-				8C6426B4184141540037DD55 /* IPCamera.m in Sources */,
-				8C3F207D185DD2C900451DAE /* UIImage+TPAdditions.m in Sources */,
+				8C2AF959186BECD600E99A5B /* ZwaveThermostat.m in Sources */,
+				8C2AF94D186BECD600E99A5B /* IPCamera.m in Sources */,
+				8C2AF953186BECD600E99A5B /* ZwaveHumiditySensor.m in Sources */,
+				8C2AF90A186BEB2800E99A5B /* UIImage+ImageEffects.m in Sources */,
 				8C64270D1841AA260037DD55 /* flickViewRoomController.m in Sources */,
-				8C6426C0184141540037DD55 /* ZwaveThermostat.m in Sources */,
-				8C6426B6184141540037DD55 /* VeraController.m in Sources */,
-				8C6426B7184141540037DD55 /* VeraRoom.m in Sources */,
-				8C6426B8184141540037DD55 /* VeraSceneTrigger.m in Sources */,
-				8C6426BB184141540037DD55 /* ZwaveLock.m in Sources */,
-				8C6426BA184141540037DD55 /* ZwaveHumiditySensor.m in Sources */,
+				8C2AF950186BECD600E99A5B /* VeraRoom.m in Sources */,
 				8C54886618496F5A00B6AA8E /* FlickRoomSceneCell.m in Sources */,
 				8C54886D184986E900B6AA8E /* FlickRoomDimmerCell.m in Sources */,
-				8C6426BC184141540037DD55 /* ZwaveNode.m in Sources */,
-				8C6426BD184141540037DD55 /* ZwavePhillipsHueBulb.m in Sources */,
-				8C6426B9184141540037DD55 /* ZwaveDimmerSwitch.m in Sources */,
 				8C6427131841D3FB0037DD55 /* flickRoomCell.m in Sources */,
-				8C6426BF184141540037DD55 /* ZwaveSwitch.m in Sources */,
 				8C31F304180BD1120098B37E /* main.m in Sources */,
+				8C2AF957186BECD600E99A5B /* ZwaveSecuritySensor.m in Sources */,
+				8C2AF958186BECD600E99A5B /* ZwaveSwitch.m in Sources */,
+				8C2AF952186BECD600E99A5B /* ZwaveDimmerSwitch.m in Sources */,
 				8C3F207A185CE29300451DAE /* flickUserInfo.m in Sources */,
 				8C54886A1849848B00B6AA8E /* FlickRoomSwitchCell.m in Sources */,
+				8C2AF951186BECD600E99A5B /* VeraSceneTrigger.m in Sources */,
+				8C2AF955186BECD600E99A5B /* ZwaveNode.m in Sources */,
+				8C2AF956186BECD600E99A5B /* ZwavePhillipsHueBulb.m in Sources */,
 				8C3A19361867B72B00EE3CE2 /* FlickLoadingScreenViewController.m in Sources */,
+				8C2AF90B186BEB2800E99A5B /* UIImage+TPAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

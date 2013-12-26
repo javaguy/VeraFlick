@@ -19,6 +19,7 @@ NSDictionary *roomImageDefaults;
         if (sharedInstance == nil){
             sharedInstance = [[self alloc] init];
             
+            //These are stock images hardcoded to a specific room id. Update these to fix images specific to your room.
             roomImageDefaults = [[NSDictionary alloc] initWithObjectsAndKeys: @"GenericRoom", @"0",  @"BedroomRoom", @"1", @"LivingRoom", @"2", @"DiningRoom", @"3", @"KitchenRoom", @"4", nil];
         }
     }
@@ -58,19 +59,15 @@ NSDictionary *roomImageDefaults;
     
     if (image != nil) {
         NSData *imageData = UIImagePNGRepresentation(image);
-        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
-        
         NSString *imagePath =[documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.png", roomId, @"cached"]];
         
         NSLog((@"pre writing to file"));
-        if (![imageData writeToFile:imagePath atomically:NO])
-        {
+        if (![imageData writeToFile:imagePath atomically:NO]) {
             NSLog((@"Failed to cache image data to disk"));
         }
-        else
-        {
+        else {
             NSLog(@"the cachedImagedPath is %@",imagePath);
             
             //Save the image in the room Images dictionary
@@ -95,7 +92,6 @@ NSDictionary *roomImageDefaults;
 }
 
 -(UIImage *)getImageForRoomId:(NSString*)roomId {
-    
     UIImage *image;
     NSString *pathToImage = [self.roomImages valueForKey:roomId];
     
